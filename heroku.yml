@@ -1,5 +1,3 @@
 build:
   docker:
     web: Dockerfile
-run:
-  web: cd /var/www/app && npm run dev
