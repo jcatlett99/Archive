@@ -1,8 +1,6 @@
 import './style.css'
 import * as THREE from 'three'
 import * as dat from 'dat.gui'
-import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
-
 
 function loadImage(path, id, css, target) {
     $('<img class="images" id="'+ id +'" src="'+ path +'" style="'+ css +'">').load(function() {
@@ -79,101 +77,28 @@ for (let i = 33; i < 53; i++) {
 }
 
 
+
+const textureLoader = new THREE.TextureLoader();
+const normalTexture = textureLoader.load('/textures/v1.png');
+
 const canvas = document.querySelector('canvas.webgl');
 const scene = new THREE.Scene();
 
-const r = "psuedoflat/";
-const urls2 = [
-    r + "px-s@2x.png", r + "nx-s@2x.png",
-    r + "py-s@2x.png", r + "ny-s@2x.png",
-    r + "pz-s@2x.png", r + "nz-s@2x.png"
-];
+const geometryTorus = new  THREE.TorusKnotGeometry(8, 4, 100, 10, 2, 3);
+geometryTorus.translate(0, 0, 0);
+const materialTorus = new THREE.MeshStandardMaterial();
+materialTorus.depthTest = false;
+materialTorus.normalMap = normalTexture;
+materialTorus.color = new THREE.Color(0x4fafa8);
 
-const textureCube = new THREE.CubeTextureLoader().load( urls2 );
-textureCube.mapping = THREE.CubeRefractionMapping;
-const texture = new THREE.TextureLoader().load( "/textures/diffuse.jpg" );
-texture.wrapS = THREE.RepeatWrapping;
-texture.wrapT = THREE.RepeatWrapping;
-texture.repeat.set( 1, 1 );
-const normal = new THREE.TextureLoader().load( "/textures/stone3_uv_Default_Normal.png" );
-normal.wrapS = THREE.RepeatWrapping;
-normal.wrapT = THREE.RepeatWrapping;
-normal.repeat.set( 1, 1 );
-
-const cubeMaterial = new THREE.MeshPhongMaterial( {
-    color: 0x000001,
-    normalMap: texture,
-    normalScale: new THREE.Vector3(0.001, 0.001),
-    envMap: textureCube,
-    aoMap: normal,
-    aoMapIntensity: 10,
-    alphaMap: texture,
-    refractionRatio: 0.2,
-    reflectivity: 1,
-    shininess: 100,
-    specular: 0xffffff,
-    emissive: 0xffffff,
-    morphTargets: true,
-} );
-
-const group = new THREE.Group();
-const objLoader = new OBJLoader();
-let obj;
-objLoader.load('/textures/centred_stone.obj', (object) => {
-    object.traverse(function(child) {
-        if (child instanceof THREE.Mesh) {
-            if (child.isMesh) obj = child.clone();
-
-            obj.scale.set(0.90, 0.90, 0.90);
-            obj.material = cubeMaterial;
-
-            var center = new THREE.Vector3();
-            obj.geometry.computeBoundingBox();
-            obj.geometry.boundingBox.getCenter(center);
-            obj.geometry.center();
-            obj.position.copy(center);
-
-            let morphAttributes = obj.geometry.morphAttributes;
-            morphAttributes.position = [];
-            obj.material.morphTargets = true;
-
-            let position = obj.geometry.attributes.position.clone();
-
-            for ( let j = 0, jl = position.count; j < jl; j ++ ) {
-
-                position.setXYZ(
-                    j,
-                    position.getX( j ) * 2,
-                    position.getY( j ) * 2,
-                    position.getZ( j ) * 2
-                );
-
-            }
-
-            morphAttributes.position.push(position); // I forgot this earlier.
-            obj.updateMorphTargets();
-            obj.morphTargetInfluences[ 0 ] = 0;
-
-            group.add(obj);
-
-        }
-    });
-});
-
-scene.add(group);
-
-const renderer = new THREE.WebGLRenderer({
-    canvas: canvas,
-    antialias: !0,
-    alpha: !0
-});
-renderer.setSize( window.innerWidth, window.innerHeight );
-renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setClearColor( 0xffffff, 0);
+const torus = new THREE.Mesh(geometryTorus, materialTorus);
+torus.scale.set(4, 4, 4);
+scene.add(torus);
 
 /**
  * Lights
  */
+
 const pointLight2 = new THREE.PointLight(0xff0000, 10);
 pointLight2.position.set(-500, -500, -400);
 scene.add(pointLight2);
@@ -186,8 +111,21 @@ scene.add(pointLight1);
  * Camera
  */
 let camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 100000 );
-camera.position.z = 100;
+camera.position.z = 200;
 scene.add(camera);
+
+
+/**
+ * Renderer
+ */
+const renderer = new THREE.WebGLRenderer({
+    canvas: canvas,
+    antialias: !0,
+    alpha: !0
+});
+renderer.setSize( window.innerWidth, window.innerHeight );
+renderer.setPixelRatio(window.devicePixelRatio);
+renderer.setClearColor( 0xffffff, 0);
 
 /**
  * Animate
@@ -198,69 +136,14 @@ const clock = new THREE.Clock();
 const tick = () => {
     const elapsedTime = clock.getElapsedTime();
 
-    group.rotation.x = 0.8 * elapsedTime;
-    group.rotation.y = 0.8 * elapsedTime;
+    torus.rotation.y = 0.4 * elapsedTime;
+    torus.rotation.x = 0.4 * elapsedTime;
 
     renderer.render(scene, camera);
     window.requestAnimationFrame(tick)
 };
+
 tick();
-
-
-const cameraCanvas = document.querySelector('canvas.videoCanvas');
-const cameraScene = new THREE.Scene();
-
-let video = document.getElementById( 'video' );
-const videoTexture = new THREE.VideoTexture( video );
-
-let w = cameraCanvas.width;
-let h = cameraCanvas.height;
-
-const videoGeometry = new THREE.PlaneGeometry( w, h );
-videoGeometry.scale( 0.5, 0.5, 0.5 );
-const videoMaterial = new THREE.MeshBasicMaterial( { map: videoTexture } );
-
-const videoMesh = new THREE.Mesh( videoGeometry, videoMaterial );
-cameraScene.add( videoMesh );
-
-initWebcamInput();
-
-function initWebcamInput() {
-
-    if ( navigator.mediaDevices && navigator.mediaDevices.getUserMedia ) {
-
-        navigator.mediaDevices.getUserMedia( { video: true } ).then( function ( stream ) {
-
-            video.srcObject = stream;
-            video.play();
-
-        } ).catch( function ( error ) {
-            console.error( 'Unable to access the camera/webcam.', error );
-        } );
-    } else {
-        console.error( 'MediaDevices interface not available.' );
-    }
-
-}
-
-const cameraRenderer = new THREE.WebGLRenderer({
-    canvas: cameraCanvas,
-    antialias: !0,
-    alpha: !0
-});
-cameraRenderer.setSize( window.innerWidth, window.innerHeight );
-cameraRenderer.setPixelRatio(window.devicePixelRatio);
-cameraRenderer.setClearColor( 0xffffff, 0);
-
-let vidCamera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 100000 );
-vidCamera.position.z = 100;
-cameraScene.add(vidCamera);
-
-const video_tick = () => {
-    cameraRenderer.render(cameraScene, vidCamera);
-    window.requestAnimationFrame(video_tick)
-};
-video_tick();
 
 function showImages(el) {
     let windowHeight = jQuery( window ).height();
@@ -293,16 +176,81 @@ function isScrolledIntoView(elem)
     let elemTop = $(elem).offset().top;
     let elemBottom = elemTop + $(elem).height();
 
+    // console.log(elemBottom, ":", docViewBottom, " | ", elemTop, ":", docViewTop)
+
     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
 }
 
 $(window).scroll(function() {
     const children = document.querySelector('#textBar').childNodes;
     children.forEach( child => {
+        // console.log(child)
         child.childNodes.forEach( grandchild => {
+            // console.log("#", grandchild.id)
             if (isScrolledIntoView($('#' + grandchild.id))) {
+                // console.log("printing")
                 $('#' + grandchild.id).addClass('animation');
             }
         })
     });
 });
+
+const musicContainer = document.querySelector('.musicContainer');
+const playBtn = document.querySelector('#play');
+const prevBtn = document.querySelector('#prev');
+const nextBtn = document.querySelector('#next');
+const audio = document.querySelector('#audio');
+const progress = document.querySelector('.progress');
+
+function playSong() {
+    musicContainer.classList.add('play');
+    playBtn.querySelector('i.fas').classList.remove('fa-play');
+    playBtn.querySelector('i.fas').classList.add('fa-pause');
+
+    audio.play();
+}
+
+function pauseSong() {
+    musicContainer.classList.remove('play');
+    playBtn.querySelector('i.fas').classList.add('fa-play');
+    playBtn.querySelector('i.fas').classList.remove('fa-pause');
+
+    audio.pause();
+}
+
+playBtn.addEventListener('click', () => {
+    const isPlaying = musicContainer.classList.contains('play');
+
+    if(isPlaying) {
+        pauseSong();
+    } else {
+        playSong();
+    }
+});
+
+prevBtn.addEventListener('click', (event) => {
+    const time = audio.currentTime;
+    if (time <= 30) {
+        audio.currentTime = 0;
+    } else {
+        audio.currentTime -= 30;
+    }
+});
+
+nextBtn.addEventListener('click', (event) => {
+    const time = audio.currentTime;
+    const duration = audio.duration;
+    if (time >= duration - 30) {
+        audio.currentTime = duration;
+    } else {
+        audio.currentTime += 30;
+    }
+});
+
+function updateProgress(event) {
+    const {duration, currentTime} = event.srcElement;
+    const progressPercent = (currentTime / duration) * 100;
+    progress.style.width = `${progressPercent}%`
+}
+
+audio.addEventListener('timeupdate', updateProgress)

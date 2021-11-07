@@ -56,7 +56,7 @@ h1 {
     float: top;
     width: 100%;
     display: inline-block;
-    margin-top: 100px;
+    margin-top: 75px;
 }
 
 .speaker1{
@@ -113,7 +113,7 @@ h1 {
     float: top;
 }
 
-#bottomSection {
+#simulation {
     margin-top: 10%;
 
     position: relative;
@@ -121,50 +121,7 @@ h1 {
     height: 100%;
     width: 100%;
 
-    background: rgb(24, 24, 30);
-
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-
-#webcamContainer {
-    background-color: rgb(35, 35, 43);
-    box-shadow: 0px 0px 40px 2px rgb(161, 0, 27);
-
-    width: 1800px;
-    height: 1000px;
-
-    border-radius: 30px 30px 0px 0px;
-
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-
-}
-
-.videoCanvas {
-    margin: 0;
-    padding: 0;
-}
-
-#go_home {
-    position: absolute;
-    top: 900px;
-
-    width: 250px;
-    height: 70px;
-
-    background: rgb(24, 24, 30);;
-    color: white;
-
-    border-radius: 50px;
-    border-color: transparent;
-    box-shadow: 0px 0px 25px 2px rgb(161, 0, 27);
+    background: rgb(50, 50, 50);
 }
 
 .fadeIn {

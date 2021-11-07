@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <title>ThreeJS Starter</title>
+
+</head>
+<body >
+    <div id="titleContainer">
+        <h1>A Personal Space</h1>
+    </div>
+    <canvas class="webgl"></canvas>
+
+    <div id="parent">
+        <div id="textBar">
+
+<!--            <div class="containerText"><p id="line" class="speaker1"></p></div>-->
+
+<!--            <div class="containerText"><p id="line" class="speaker2"></p></div>-->
+
+
+            <div class="containerText">
+                <p id="line2" class="speaker2">What happened?</p>
+            </div>
+            <div class="containerText">
+                <p id="line1" class="speaker1">They took it from me.</p>
+                <p id="line1_1" class="speaker1">The one thing I had left here.</p>
+            </div>
+            <div class="containerText">
+                <p id="line4" class="speaker2">What did they take?</p>
+            </div>
+            <div class="containerText">
+                <p id="line3" class="speaker1">They took my fucking chance to get out of here.  </p>
+                <p id="line3_1" class="speaker1">I was going to move.</p>
+                <p id="line3_2" class="speaker1">I was going to get away from here, </p>
+                <p id="line3_2_1" class="speaker1">learn something actually interesting!</p>
+                <p id="line3_3" class="speaker1">I was finally going to be happy again and they took it!</p>
+            </div>
+            <div class="containerText"><p id="line6" class="speaker2">Life goes on. You still have time.</p></div>
+            <div class="containerText">
+                <p id="line5" class="speaker1">After a year!? A year of being at home,</p>
+                <p id="line5_1" class="speaker1"> in a single room, expected to pretend to be motivated</p>
+                <p id="line5_2" class="speaker1">and passionate about something I never even wanted to do?</p>
+                <p id="line5_3" class="speaker1">Everyday I wake up and these walls are closer.</p>
+                <p id="line5_4" class="speaker1">The windows keep getting thicker.</p>
+                <p id="line5_5" class="speaker1">The bed becomes bigger and bigger,</p>
+                <p id="line5_6" class="speaker1"> it takes longer and longer to get out of it every morning, </p>
+                <p id="line5_7" class="speaker1">I know one day I won’t be able to.</p>
+            </div>
+            <div class="containerText">
+                <p id="line8" class="speaker2">You’re young. This anger, this resentment, this is evidence of that.</p>
+                <p id="line8_1" class="speaker2">You will one day not remember the moments you spent looking at your walls,</p>
+                <p id="line8_2" class="speaker2"> only the freedom you felt when you left.</p>
+            </div>
+            <div class="containerText">
+                <p id="line7" class="speaker1">I’ll remember the loneliness. I’ll remember the fear.</p>
+            </div>
+            <div class="containerText">
+                <p id="line10" class="speaker2">Why?</p>
+            </div>
+            <div class="containerText">
+                <p id="line9" class="speaker1">Because it is all I feel.</p>
+                <p id="line9_1" class="speaker1">One by one I watched my closest friends fade into obscurity.</p>
+                <p id="line9_2" class="speaker1">I had all and then most, some and none of the relationships I did before this.</p>
+            </div>
+            <div class="containerText">
+                <p id="line12" class="speaker2">Why?</p>
+            </div>
+            <div class="containerText">
+                <p id="line11" class="speaker1">“Why?”</p>
+                <p id="line11_1" class="speaker1">Because I was locked away. I was sad and scared.</p>
+                <p id="line11_2" class="speaker1">I lost my chance to fly away. I was forced to stay another year in a study I hate.</p>
+                <p id="line11_3" class="speaker1">I lost my only financial security because of it. </p>
+                <p id="line11_4" class="speaker1">I was forced to get a job because of their fuck-up.</p>
+                <p id="line11_4_1" class="speaker1">I was forced to get three. This is just another moment where my poor life choices,</p>
+                <p id="line11_5" class="speaker1">my inability to be an adult has come to haunt me.</p>
+                <p id="line11_6" class="speaker1">And it does.</p>
+                <p id="line11_7" class="speaker1">The only visitors I get now are the spectres of my failures who </p>
+                <p id="line11_8" class="speaker1">hide in the shadows of my room, laughing quietly at me. </p>
+            </div>
+            <div class="containerText">
+                <p id="line14" class="speaker2">You are not an adult.</p>
+            </div>
+            <div class="containerText">
+                <p id="line13" class="speaker1">Well, I know and -</p>
+            </div>
+            <div class="containerText">
+                <p id="line16" class="speaker2">But you are trying.</p>
+            </div>
+            <div class="containerText">
+                <p id="line15" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line18" class="speaker2">You are trying and that makes you worthwhile. Not how fast you graduate.</p>
+                <p id="line18_1" class="speaker2">Not how much money you have or how independent you are.</p>
+                <p id="line18_1_1" class="speaker2">or how independent you are. But the drive to do and be those things.</p>
+                <p id="line18_2" class="speaker2">The maturity to recognise your shortcomings, and want to overcome them.</p>
+                <p id="line18_3" class="speaker2">The vengeful self-destruction you feel for being</p>
+                <p id="line18_4" class="speaker2">betrayed by your university, the emotional outbursts, </p>
+                <p id="line18_4_1" class="speaker2">the anxiety, these are all things you experience</p>
+                <p id="line18_5" class="speaker2">because of your humanity, not your childishness. The childishness is despair.</p>
+                <p id="line18_6" class="speaker2">The lie you tell yourself that you can't change it. </p>
+                <p id="line18_7" class="speaker2"></p>
+            </div>
+            <div class="containerText">
+                <p id="line17" class="speaker1">…</p>
+            </div>
+            <div class="containerText">
+                <p id="line20" class="speaker2">Change it.</p>
+            </div>
+            <div class="containerText">
+                <p id="line19" class="speaker1">How?</p>
+            </div>
+            <div class="containerText">
+                <p id="line22" class="speaker2">Everyone who faces this must learn how themselves.</p>
+            </div>
+            <div class="containerText">
+                <p id="line21" class="speaker2">I've tried to on my own. I can't!</p>
+            </div>
+            <div class="containerText">
+                <p id="line24" class="speaker2">You can.</p>
+            </div>
+            <div class="containerText">
+                <p id="line23" class="speaker1">Not without help. Help me to, please.</p>
+            </div>
+            <div class="containerText">
+                <p id="line26" class="speaker2">I cannot help you.</p>
+            </div>
+            <div class="containerText">
+                <p id="line25" class="speaker1">Why not?</p>
+            </div>
+            <div class="containerText">
+                <p id="line28" class="speaker2">I am just as much You as you are.</p>
+            </div>
+            <div class="containerText">
+                <p id="line27" class="speaker1">But then who is going to help me to deal with all of this?</p>
+            </div>
+            <div class="containerText">
+                <p id="line30" class="speaker2">You have people in your life. Ask for help. Don't be proud.</p>
+            </div>
+            <div class="containerText">
+                <p id="line29" class="speaker1">How?</p>
+            </div>
+            <div class="containerText">
+                <p id="line32" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line31" class="speaker1">How? Please...</p>
+            </div>
+            <div class="containerText">
+                <p id="line34" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line33" class="speaker1">Okay, I won't be proud but please teach me to ask for help.</p>
+            </div>
+            <div class="containerText">
+                <p id="line36" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line35" class="speaker1">Where are you?</p>
+            </div>
+            <div class="containerText">
+                <p id="line38" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line37" class="speaker1">Wait...</p>
+            </div>
+            <div class="containerText">
+                <p id="line40" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line39" class="speaker1">Everyone is leaving...</p>
+            </div>
+            <div class="containerText">
+                <p id="line42" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line41" class="speaker1">Where is everyone going?</p>
+            </div>
+            <div class="containerText">
+                <p id="line44" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line43" class="speaker1">I'm the only one staying here, they're all finished.</p>
+            </div>
+            <div class="containerText">
+                <p id="line46" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line45" class="speaker1">They have all finished or left me. Please come back.</p>
+            </div>
+            <div class="containerText">
+                <p id="line48" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line47" class="speaker1">Why am I the only one left.</p>
+            </div>
+            <div class="containerText">
+                <p id="line50" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line49" class="speaker1">Look...</p>
+            </div>
+            <div class="containerText">
+                <p id="line52" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line51" class="speaker1">They're all going home. Going away...</p>
+            </div>
+            <div class="containerText">
+                <p id="line54" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line53" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line56" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line55" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line58" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line57" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line60" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line59" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line62" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line61" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line64" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line63" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line66" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line65" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line68" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line67" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line70" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line69" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line72" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line71" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line74" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line73" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line76" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line75" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line78" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line77" class="speaker1">They're really gone.</p>
+            </div>
+            <div class="containerText">
+                <p id="line80" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line79" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line82" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line81" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line84" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line83" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line86" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line85" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line88" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line87" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line90" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line89" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line92" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line91" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line94" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line93" class="speaker1">Okay</p>
+            </div>
+            <div class="containerText">
+                <p id="line96" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line95" class="speaker1">I met some people. Some came back.</p>
+            </div>
+            <div class="containerText">
+                <p id="line98" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line97" class="speaker1">I'm back at school. I like it.</p>
+            </div>
+            <div class="containerText">
+                <p id="line100" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line99" class="speaker1">I feel...</p>
+            </div>
+            <div class="containerText">
+                <p id="line102" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line101" class="speaker1">I feel...good</p>
+            </div>
+            <div class="containerText">
+                <p id="line104" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line103" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line106" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line105" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line108" class="speaker2">Good.</p>
+            </div>
+            <div class="containerText">
+                <p id="line107" class="speaker1">I think I'm going to...'commit'?...to this.</p>
+            </div>
+            <div class="containerText">
+                <p id="line110" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line109" class="speaker1">I'm going to keep trying.</p>
+            </div>
+            <div class="containerText">
+                <p id="line112" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line111" class="speaker1">...</p>
+                <p id="line111_1" class="speaker1">This part of my life, computer science, it isn’t something I need to escape.</p>
+                <p id="line111_2" class="speaker1">I couldn't if I tried, it is part of me now, I just need to learn how to do that.</p>
+                <p id="line111_3" class="speaker1">I think I am.</p>
+            </div>
+            <div class="containerText">
+                <p id="line114" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line113" class="speaker1">They’re helping.</p>
+                <p id="line113_1" class="speaker1">They think I'm interesting. I think...hope.</p>
+                <p id="line113_2" class="speaker1">I think I found some nice schools too.</p>
+                <p id="line113_3" class="speaker1">I think for the first time in a long while, I’m able to imagine myself older.</p>
+                <p id="line113_4" class="speaker1">I can see myself doing something.</p>
+            </div>
+            <div class="containerText">
+                <p id="line116" class="speaker2">How do you feel about that?</p>
+            </div>
+            <div class="containerText">
+                <p id="line115" class="speaker1">I don’t know.</p>
+                <p id="line115_1" class="speaker1">Excited?</p>
+            </div>
+            <div class="containerText">
+                <p id="line118" class="speaker2">Are you asking me?</p>
+            </div>
+            <div class="containerText">
+                <p id="line117" class="speaker1">Excited.</p>
+            </div>
+            <div class="containerText">
+                <p id="line120" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line119" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line122" class="speaker2">What do see?</p>
+            </div>
+            <div class="containerText">
+                <p id="line121" class="speaker1">Huh?</p>
+            </div>
+            <div class="containerText">
+                <p id="line124" class="speaker2">When you imagine yourself older. What do see?</p>
+            </div>
+            <div class="containerText">
+                <p id="line123" class="speaker1">You.</p>
+            </div>
+            <div class="containerText">
+                <p id="line126" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line125" class="speaker1">I see me...happy.</p>
+                <p id="line125_1" class="speaker1">Fulfilled.</p>
+            </div>
+            <div class="containerText">
+                <p id="line128" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line127" class="speaker1">I see artwork and science.</p>
+            </div>
+            <div class="containerText">
+                <p id="line130" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line129" class="speaker1">I see beauty and design. I see...I see a life worth living.</p>
+            </div>
+            <div class="containerText">
+                <p id="line132" class="speaker2">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line131" class="speaker1">...</p>
+            </div>
+            <div class="containerText">
+                <p id="line134" class="speaker2">I'm proud of you.</p>
+            </div>
+            <div class="containerText">
+                <p id="line133" class="speaker1">Thank you.</p>
+            </div>
+            <div class="containerText">
+                <p id="line136" class="speaker2">Can you show me?</p>
+            </div>
+        </div>
+        <div id="pictureBar"></div>
+    </div>
+
+    <div id="simulation">
+        <h1>HERE IT IS.</h1>
+    </div>
+
+</body>
+</html>
