@@ -176,7 +176,7 @@ function isScrolledIntoView(elem)
     let elemTop = $(elem).offset().top;
     let elemBottom = elemTop + $(elem).height();
 
-    console.log(elemBottom, ":", docViewBottom, " | ", elemTop, ":", docViewTop)
+    // console.log(elemBottom, ":", docViewBottom, " | ", elemTop, ":", docViewTop)
 
     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
 }
@@ -184,13 +184,73 @@ function isScrolledIntoView(elem)
 $(window).scroll(function() {
     const children = document.querySelector('#textBar').childNodes;
     children.forEach( child => {
-        console.log(child)
+        // console.log(child)
         child.childNodes.forEach( grandchild => {
-            console.log("#", grandchild.id)
+            // console.log("#", grandchild.id)
             if (isScrolledIntoView($('#' + grandchild.id))) {
-                console.log("printing")
+                // console.log("printing")
                 $('#' + grandchild.id).addClass('animation');
             }
         })
     });
 });
+
+const musicContainer = document.querySelector('.musicContainer');
+const playBtn = document.querySelector('#play');
+const prevBtn = document.querySelector('#prev');
+const nextBtn = document.querySelector('#next');
+const audio = document.querySelector('#audio');
+const progress = document.querySelector('.progress');
+
+function playSong() {
+    musicContainer.classList.add('play');
+    playBtn.querySelector('i.fas').classList.remove('fa-play');
+    playBtn.querySelector('i.fas').classList.add('fa-pause');
+
+    audio.play();
+}
+
+function pauseSong() {
+    musicContainer.classList.remove('play');
+    playBtn.querySelector('i.fas').classList.add('fa-play');
+    playBtn.querySelector('i.fas').classList.remove('fa-pause');
+
+    audio.pause();
+}
+
+playBtn.addEventListener('click', () => {
+    const isPlaying = musicContainer.classList.contains('play');
+
+    if(isPlaying) {
+        pauseSong();
+    } else {
+        playSong();
+    }
+});
+
+prevBtn.addEventListener('click', (event) => {
+    const time = audio.currentTime;
+    if (time <= 30) {
+        audio.currentTime = 0;
+    } else {
+        audio.currentTime -= 30;
+    }
+});
+
+nextBtn.addEventListener('click', (event) => {
+    const time = audio.currentTime;
+    const duration = audio.duration;
+    if (time >= duration - 30) {
+        audio.currentTime = duration;
+    } else {
+        audio.currentTime += 30;
+    }
+});
+
+function updateProgress(event) {
+    const {duration, currentTime} = event.srcElement;
+    const progressPercent = (currentTime / duration) * 100;
+    progress.style.width = `${progressPercent}%`
+}
+
+audio.addEventListener('timeupdate', updateProgress)
