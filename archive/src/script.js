@@ -1,86 +1,35 @@
 import './style.css'
 import * as THREE from 'three'
-import * as dat from 'dat.gui'
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 
 
-function loadImage(path, id, css, target) {
-    $('<img class="images" id="'+ id +'" src="'+ path +'" style="'+ css +'">').load(function() {
-        $(this).appendTo(target);
-    });
-}
-
-let css1 = '';
-let css2 = 'grid-column: span 2;';
-let css3 = 'border-color: red; border-style:solid;'
-
-for (let i = 0; i < 33; i++) {
-    if (i == 1 || i == 7 || i == 11 || i == 14 || i == 15 || i == 17 || i == 19 || i == 20) {
-        loadImage('/images/' + i + '.jpg', 'image1', css2,'#pictureBar');
-    } else if (i == 22) {
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    } else if (i == 23) {
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    } else if (i == 25) {
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    } else if (i == 26) {
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    } else if (i == 27) {
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    } else if (i == 28) {
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    } else if (i == 29) {
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    } else if (i == 30) {
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-    }  else if (i == 31) {
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    } else if (i == 32) {
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    } else if ( i==2 ) {
-        // do nothing
-    } else {
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    }
-
-
-}
-
-for (let i = 0; i < 24; i++) {
-    loadImage('/images/blank.png', 'image1', css1, '#pictureBar');
-}
-
-for (let i = 33; i < 53; i++) {
-    if (i == 42 || i == 43 || i == 49 || i == 51 || i == 52) {
-        loadImage('/images/' + i + '.jpg', 'image1', css2, '#pictureBar');
-    } else {
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    }
-}
-
+const textureLoader = new THREE.TextureLoader();
+const normalTexture = textureLoader.load('/textures/NormalMap.png');
+const torusTexture = textureLoader.load('/textures/v1.png');
 
 const canvas = document.querySelector('canvas.webgl');
 const scene = new THREE.Scene();
+
+const geometryTorus = new  THREE.TorusKnotGeometry(8, 4, 100, 10, 2, 3);
+geometryTorus.translate(-35, 0, -20);
+const materialTorus = new THREE.MeshStandardMaterial();
+materialTorus.depthTest = false;
+materialTorus.normalMap = torusTexture;
+materialTorus.color = new THREE.Color(0x4fafa8);
+
+const torus = new THREE.Mesh(geometryTorus, materialTorus);
+scene.add(torus);
+
+const geometrySphere = new THREE.SphereBufferGeometry(10, 64, 64);
+geometrySphere.translate(35, 0, -20);
+const materialSphere = new THREE.MeshStandardMaterial();
+materialSphere.metalness = 0.7;
+materialSphere.roughness = 0.5;
+materialSphere.normalMap = normalTexture;
+materialSphere.color = new THREE.Color(0x15b097);
+
+const sphere = new THREE.Mesh(geometrySphere,materialSphere);
+scene.add(sphere);
 
 const r = "psuedoflat/";
 const urls2 = [
@@ -119,49 +68,126 @@ const cubeMaterial = new THREE.MeshPhongMaterial( {
 const group = new THREE.Group();
 const objLoader = new OBJLoader();
 let obj;
-objLoader.load('/textures/centred_stone.obj', (object) => {
+objLoader.load('/textures/stone3_uv.obj', (object) => {
     object.traverse(function(child) {
         if (child instanceof THREE.Mesh) {
             if (child.isMesh) obj = child.clone();
 
-            obj.scale.set(0.90, 0.90, 0.90);
-            obj.material = cubeMaterial;
+                obj.position.x 	= 0;
+                obj.position.y 	= 0;
+                obj.position.z 	= 50;
 
-            var center = new THREE.Vector3();
-            obj.geometry.computeBoundingBox();
-            obj.geometry.boundingBox.getCenter(center);
-            obj.geometry.center();
-            obj.position.copy(center);
+                obj.scale.set(0.5, 0.5, 0.5);
+                obj.material = cubeMaterial;
 
-            let morphAttributes = obj.geometry.morphAttributes;
-            morphAttributes.position = [];
-            obj.material.morphTargets = true;
+                let morphAttributes = obj.geometry.morphAttributes;
+                morphAttributes.position = [];
+                obj.material.morphTargets = true;
 
-            let position = obj.geometry.attributes.position.clone();
+                let position = obj.geometry.attributes.position.clone();
 
-            for ( let j = 0, jl = position.count; j < jl; j ++ ) {
+                for ( let j = 0, jl = position.count; j < jl; j ++ ) {
 
-                position.setXYZ(
-                    j,
-                    position.getX( j ) * 2,
-                    position.getY( j ) * 2,
-                    position.getZ( j ) * 2
-                );
+                    position.setXYZ(
+                        j,
+                        position.getX( j ) * 2,
+                        position.getY( j ) * 2,
+                        position.getZ( j ) * 2
+                    );
+
+                }
+
+                morphAttributes.position.push(position); // I forgot this earlier.
+                obj.updateMorphTargets();
+                obj.morphTargetInfluences[ 0 ] = 0;
+
+                group.add(obj);
 
             }
-
-            morphAttributes.position.push(position); // I forgot this earlier.
-            obj.updateMorphTargets();
-            obj.morphTargetInfluences[ 0 ] = 0;
-
-            group.add(obj);
-
-        }
+        });
     });
-});
 
 scene.add(group);
+group.position.x = 0;
+group.position.y = 0;
 
+// Lights
+const ambient = new THREE.AmbientLight(0xffffff, 1);
+scene.add(ambient);
+
+const pointLight2 = new THREE.PointLight(0xff0000, 10);
+pointLight2.position.set(-500, -500, -400);
+scene.add(pointLight2);
+
+const pointLight1 = new THREE.PointLight(0xdd5577, 5);
+pointLight1.position.set(600, 2000, -200);
+scene.add(pointLight1);
+
+/**
+ * Sizes
+ */
+const sizes = {
+    width: window.innerWidth,
+    height: window.innerHeight
+};
+document.addEventListener('mousedown', () =>
+    {
+        let i = 0;
+        if (intersection(sphere)) i = 1;
+        if (intersection(torus)) i = 2;
+        if (intersection(group)) i = 3;
+
+        switch (i) {
+            case 1:
+                console.log(sphere);
+                // document.location="threejs-webpack-starter/archive/src/personal_index.html";
+                break;
+            case 2:
+                console.log(torus);
+                // window.open('social_index.html')
+                break;
+            case 3:
+                console.log(group);
+                // window.open('physical_index.html')
+                break;
+            default:
+                console.log("nothing");
+                break;
+        }
+    }
+);
+
+let mouseX, mouseY;
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.pageX;
+    mouseY = e.pageY;
+});
+document.addEventListener('pointermove', onPointerMove);
+window.addEventListener('resize', () =>
+    {
+        // Update sizes
+        sizes.width = window.innerWidth;
+        sizes.height = window.innerHeight;
+
+        // Update camera
+        camera.aspect = sizes.width / sizes.height;
+        camera.updateProjectionMatrix();
+
+        // Update renderer
+        renderer.setSize(sizes.width, sizes.height);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2))
+    });
+
+/**
+ * Camera
+ */
+let camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 100000 );
+camera.position.z = 150;
+scene.add(camera);
+
+/**
+ * Renderer
+ */
 const renderer = new THREE.WebGLRenderer({
     canvas: canvas,
     antialias: !0,
@@ -172,137 +198,116 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setClearColor( 0xffffff, 0);
 
 /**
- * Lights
- */
-const pointLight2 = new THREE.PointLight(0xff0000, 10);
-pointLight2.position.set(-500, -500, -400);
-scene.add(pointLight2);
-
-const pointLight1 = new THREE.PointLight(0xdd5577, 5);
-pointLight1.position.set(600, 2000, -200);
-scene.add(pointLight1);
-
-/**
- * Camera
- */
-let camera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 100000 );
-camera.position.z = 100;
-scene.add(camera);
-
-/**
  * Animate
  */
+const raycaster = new THREE.Raycaster();
+const pointer = new THREE.Vector2();
 
-const clock = new THREE.Clock();
+const objects = [sphere, torus, group];
 
-const tick = () => {
-    const elapsedTime = clock.getElapsedTime();
+function onPointerMove( event ) {
+    pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
+    pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
 
-    group.rotation.x = 0.8 * elapsedTime;
-    group.rotation.y = 0.8 * elapsedTime;
+    raycaster.setFromCamera( pointer, camera );
+    let bool = false;
+    let name = "";
+    for (const thing of objects) {
+        if (thing instanceof THREE.Mesh) {
+            const intersects = raycaster.intersectObject(thing);
+            if (intersects.length > 0) {
+                name = thing.geometry.type;
+                bool = true;
+            }
+        } else {
+            thing.traverse(function (child) {
+                if (child instanceof THREE.Mesh) {
+                    const intersects1 = raycaster.intersectObject(child);
+                    if (intersects1.length > 0) {
+                        bool = true;
+                        name = thing.type;
+                    }
+                }
+            });
+        }
+    }
 
-    renderer.render(scene, camera);
-    window.requestAnimationFrame(tick)
-};
-tick();
+    if (bool) {
+        $('html,body').css('cursor', 'pointer');
+        const tip = document.querySelector('#tooltip');
+        tip.style="left:" + mouseX + "px;top:" + mouseY + "px;visibility: visible;";
 
-
-const cameraCanvas = document.querySelector('canvas.videoCanvas');
-const cameraScene = new THREE.Scene();
-
-let video = document.getElementById( 'video' );
-const videoTexture = new THREE.VideoTexture( video );
-
-let w = cameraCanvas.width;
-let h = cameraCanvas.height;
-
-const videoGeometry = new THREE.PlaneGeometry( w, h );
-videoGeometry.scale( 0.5, 0.5, 0.5 );
-const videoMaterial = new THREE.MeshBasicMaterial( { map: videoTexture } );
-
-const videoMesh = new THREE.Mesh( videoGeometry, videoMaterial );
-cameraScene.add( videoMesh );
-
-initWebcamInput();
-
-function initWebcamInput() {
-
-    if ( navigator.mediaDevices && navigator.mediaDevices.getUserMedia ) {
-
-        navigator.mediaDevices.getUserMedia( { video: true } ).then( function ( stream ) {
-
-            video.srcObject = stream;
-            video.play();
-
-        } ).catch( function ( error ) {
-            console.error( 'Unable to access the camera/webcam.', error );
-        } );
+        switch (name) {
+            case "SphereGeometry":
+                tip.innerHTML = "A Personal Story";
+                break;
+            case "TorusKnotGeometry":
+                tip.innerHTML = "A Social Story";
+                break;
+            case "Group":
+                tip.innerHTML = "A Physical Story";
+                break;
+            default:
+                break;
+        }
     } else {
-        console.error( 'MediaDevices interface not available.' );
+        $('html,body').css('cursor', 'default');
+        const tip = document.querySelector('#tooltip');
+        tip.style="visibility: hidden;"
     }
 
 }
 
-const cameraRenderer = new THREE.WebGLRenderer({
-    canvas: cameraCanvas,
-    antialias: !0,
-    alpha: !0
-});
-cameraRenderer.setSize( window.innerWidth, window.innerHeight );
-cameraRenderer.setPixelRatio(window.devicePixelRatio);
-cameraRenderer.setClearColor( 0xffffff, 0);
+const lineGeometry = new THREE.BufferGeometry();
+lineGeometry.setAttribute( 'position', new THREE.BufferAttribute( new Float32Array( 4 * 3 ), 3 ) );
+const lineMaterial = new THREE.LineBasicMaterial( { color: 0xffffff, transparent: true } );
+const line = new THREE.Line( lineGeometry, lineMaterial );
+scene.add( line );
 
-let vidCamera = new THREE.PerspectiveCamera( 50, window.innerWidth / window.innerHeight, 1, 100000 );
-vidCamera.position.z = 100;
-cameraScene.add(vidCamera);
+const clock = new THREE.Clock();
 
-const video_tick = () => {
-    cameraRenderer.render(cameraScene, vidCamera);
-    window.requestAnimationFrame(video_tick)
-};
-video_tick();
+function intersection(object){
+    raycaster.setFromCamera( pointer, camera );
 
-function showImages(el) {
-    let windowHeight = jQuery( window ).height();
-    $(el).each(function(){
-        let thisPos = $(this).offset().top;
-
-        let topOfWindow = $(window).scrollTop();
-        if (topOfWindow + windowHeight - 200 > thisPos ) {
-            $(this).addClass("fadeIn");
-        }
-    });
-}
-
-// if the image in the window of browser when the page is loaded, show that image
-$(document).ready(function(){
-    showImages('.images');
-});
-
-// if the image in the window of browser when scrolling the page, show that image
-$(window).scroll(function() {
-    showImages('.images');
-});
-
-
-function isScrolledIntoView(elem)
-{
-    let docViewTop = $(window).scrollTop();
-    let docViewBottom = docViewTop + $(window).height();
-
-    let elemTop = $(elem).offset().top;
-    let elemBottom = elemTop + $(elem).height();
-
-    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
-}
-
-$(window).scroll(function() {
-    const children = document.querySelector('#textBar').childNodes;
-    children.forEach( child => {
-        child.childNodes.forEach( grandchild => {
-            if (isScrolledIntoView($('#' + grandchild.id))) {
-                $('#' + grandchild.id).addClass('animation');
+    if (object instanceof  THREE.Mesh) {
+        const intersects = raycaster.intersectObject( object );
+        if (intersects.length > 0) return true;
+    } else {
+        let bool = false;
+        object.traverse(function(child) {
+            if (child instanceof THREE.Mesh) {
+                const intersects1 = raycaster.intersectObject( child );
+                bool = intersects1.length > 0;
             }
-        })
+        });
+        return bool;
+    }
+    return false;
+}
+
+const tick = () => {
+    const elapsedTime = clock.getElapsedTime();
+
+    group.rotation.y = 0.2 * elapsedTime;
+    torus.rotation.y = 0.5 * elapsedTime;
+    sphere.rotation.y = 0.4 * elapsedTime;
+
+    group.rotation.x = 0.8 * elapsedTime;
+    torus.rotation.x = 0.5 * elapsedTime;
+    sphere.rotation.x = 0.4 * elapsedTime;
+
+    renderer.render(scene, camera);
+    window.requestAnimationFrame(tick)
+};
+
+tick();
+
+const vid = document.querySelector('#intro');
+
+if (vid) {
+    vid.addEventListener('ended', () => {
+        console.log("finished");
+        document.querySelector('.webgl').classList.add("fadeIn");
+        vid.classList.add("fadeOut");
     });
-});
+}

@@ -10,10 +10,35 @@ body
     height: 100vh;
     font-family: 'Josefin Sans';
     background:rgb(24, 24, 30) ;
+
 }
 
-body{
-    overflow-x: hidden;
+#video {
+    width: 100%;
+    height: auto;
+    visibility: visible;
+    z-index: 5;
+}
+
+.video-container {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+.video-container video {
+    min-width: 100%;
+    min-height: 100%;
+
+    width: auto;
+    height: auto;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
 }
 
 .webgl {
@@ -21,159 +46,47 @@ body{
     top: 0;
     left: 0;
     outline: none;
-    mix-blend-mode: exclusion;
-}
-
-#titleContainer {
-    top: 0;
-    height: 100vh;
-    width: 100%;
-    display: grid;
-    place-items: center;
-}
-h1 {
-    font-size: 8rem;
-    color: white;
-}
-
-#parent {
-    width: 100%;
-    height: 15000px;
-    position: relative;
-}
-
-#textBar {
-    width: 48%;
-    height: 100%;
-
-    background: rgb(24, 24, 30);
-
-    left: 1%;
-    position: absolute;
-}
-
-.containerText {
-    float: top;
-    width: 100%;
-    display: inline-block;
-    margin-top: 100px;
-}
-
-.speaker1{
-    position: relative;
-    font-size: 150%;
-    white-space: nowrap;
-    overflow: hidden;
+    z-index: 1;
     visibility: hidden;
-    color: #ffffff;
-}
-
-.speaker2{
-    position: relative;
-    font-size: 150%;
-    white-space: nowrap;
-    overflow: hidden;
-    visibility: hidden;
-    color: #ffffff;
-    float: right;
-    display: inline-block;
-    text-align: right;
-
-}
-
-.animation{
-    visibility: visible;
-    animation: typewriter 4s steps(44) 1s 1 normal both
-}
-@keyframes typewriter{
-    from{width: 0;}
-    to{width: 100%;}
-}
-
-#pictureBar {
-    width: 50%;
-    height: 100%;
-
-    background: rgb(24, 24, 30);
-
-    right: 0;
-    position: absolute;
-
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 1rem;
-}
-
-.images {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    visibility: hidden;
-
-    float: top;
-}
-
-#bottomSection {
-    margin-top: 10%;
-
-    position: relative;
-
-    height: 100%;
-    width: 100%;
-
-    background: rgb(24, 24, 30);
-
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-}
-
-#webcamContainer {
-    background-color: rgb(35, 35, 43);
-    box-shadow: 0px 0px 40px 2px rgb(161, 0, 27);
-
-    width: 1800px;
-    height: 1000px;
-
-    border-radius: 30px 30px 0px 0px;
-
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-
-}
-
-.videoCanvas {
-    margin: 0;
-    padding: 0;
-}
-
-#go_home {
-    position: absolute;
-    top: 900px;
-
-    width: 250px;
-    height: 70px;
-
-    background: rgb(24, 24, 30);;
-    color: white;
-
-    border-radius: 50px;
-    border-color: transparent;
-    box-shadow: 0px 0px 25px 2px rgb(161, 0, 27);
 }
 
 .fadeIn {
-    -webkit-animation: animat_show 0.8s;
-    animation: animat_show 0.8s;
+    -webkit-animation: animate_show 3s;
+    animation: animate_show 3s;
     visibility: visible !important;
 }
 
-@-webkit-keyframes animat_show{
+@-webkit-keyframes animate_show{
     0%{opacity:0}
     100%{opacity:1}
+}
+
+.fadeOut {
+    -webkit-animation: animate_hide 3s;
+    animation: animate_hide 3s;
+    visibility: hidden !important;
+}
+
+@-webkit-keyframes animate_hide{
+    0%{opacity:1}
+    100%{opacity:0}
+}
+
+#tooltip {
+    width: 140px;
+    height: auto;
+
+    position: absolute;
+
+    border-radius: 16px;
+    border-color: transparent;
+
+    background: rgb(50, 50, 60);
+    color: white;
+    text-align: center;
+    padding: 5px;
+
+    visibility: hidden;
+
+    z-index: 10;
 }
