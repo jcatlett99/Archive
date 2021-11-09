@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" href="physical_style.css">
+
+    <script defer="defer" src="bundle.main.js"></script>
+    <title>ThreeJS Starter</title>
+
+</head>
+<body >
+
+    <script src="../src/physical_script.js"></script>
+    <div id="titleContainer">
+        <h1>A Physical Space</h1>
+    </div>
+    <canvas class="webgl"></canvas>
+
+    <div id="parent">
+        <div id="textBar">
+
+            <div class="container">
+                <p id="line1" class="speaker2">So what do you think of it all?</p>
+            </div>
+            <div class="container">
+                <p id="line2" class="speaker1">What?</p>
+            </div>
+            <div class="container">
+                <p id="line3" class="speaker2">The institution. "RASL".</p>
+            </div>
+            <div class="container">
+                <p id="line4" class="speaker1">You say institution as if that is a bad thing.</p>
+            </div>
+            <div class="container">
+                <p id="line5" class="speaker2">Isn’t that what they were trying to teach you?</p>
+            </div>
+            <div class="container">
+                <p id="line6" class="speaker1">No. I don’t think so.</p>
+            </div>
+            <div class="container">
+                <p id="line7" class="speaker2">What were they trying to teach you then?</p>
+            </div>
+            <div class="container">
+                <p id="line8" class="speaker1">Well...I don’t know, a lot of stuff.</p>
+                <p id="line8_1" class="speaker1">Do you want to go through it all?</p>
+            </div>
+            <div class="container">
+                <p id="line9" class="speaker2">Do you?</p>
+            </div>
+            <div class="container">
+                <p id="line10" class="speaker1">...</p>
+            </div>
+            <div class="container">
+                <p id="line11" class="speaker2">Let’s just talk and see where the words take us.</p>
+            </div>
+            <div class="container">
+                <p id="line12" class="speaker1">Okay.</p>
+            </div>
+            <div class="container">
+                <p id="line13" class="speaker2">So tell me about the first.</p>
+            </div>
+            <div class="container">
+                <p id="line14" class="speaker1">Well, I actually missed the first day.</p>
+            </div>
+            <div class="container">
+                <p id="line15" class="speaker2">Why?</p>
+            </div>
+            <div class="container">
+                <p id="line16" class="speaker1">There were some communication issues</p>
+                <p id="line16_1" class="speaker1">between EUR and TUD.</p>
+            </div>
+            <div class="container">
+                <p id="line17" class="speaker2">Were there consequences?</p>
+            </div>
+            <div class="container">
+                <p id="line18" class="speaker1">Well, no actually, I suppose you could say</p>
+                <p id="line18_1" class="speaker1">this was my first lesson about the</p>
+                <p id="line18_3" class="speaker1">'instituion'. They are a lot more forgiving.</p>
+                <p id="line18_4" class="speaker1">More human.</p>
+                <p id="line18_5" class="speaker1">In fact the minor coordinator had been</p>
+                <p id="line18_6" class="speaker1">putting up with my incessant emails all</p>
+                <p id="line18_7" class="speaker1">summer; due to my paranoia about TUD messing</p>
+                <p id="line18_8" class="speaker1">up my minor last year. I expected her to</p>
+                <p id="line18_9" class="speaker1">already be tired of me when we met. Instead I</p>
+                <p id="line18_1_1" class="speaker1">was met with warm conversation and</p>
+                <p id="line18_1_2" class="speaker1">complete understanding about my </p>
+                <p id="line18_1_3" class="speaker1">behaviour and situation. </p>
+            </div>
+            <div class="container">
+                <p id="line19" class="speaker2">So it was an easy transition then?</p>
+            </div>
+            <div class="container">
+                <p id="line20" class="speaker1">No. I wouldn’t say that.</p>
+                <p id="line20_1" class="speaker1">I was intimidated. Anxious and lost.</p>
+                <p id="line20_2" class="speaker1">That first day set the tone, </p>
+                <p id="line20_3" class="speaker1">demonstrated the balance of inner and</p>
+                <p id="line20_4" class="speaker1">outer exploration we would be doing for </p>
+                <p id="line20_5" class="speaker1">the rest of the ten weeks.</p>
+                <p id="line20_6" class="speaker1">Like, there was ample preparatory reading </p>
+                <p id="line20_7" class="speaker1">(albeit optional but still) </p>
+                <p id="line20_8" class="speaker1">however we spent the first hour practicing </p>
+                <p id="line20_9" class="speaker1">a “heart-chakra” exercise and</p>
+                <p id="line20_1_1" class="speaker1">talking about improvisation.</p>
+                <p id="line20_1_2" class="speaker1">This duality between self realisation and </p>
+                <p id="line20_1_3" class="speaker1">external actualisation was </p>
+                <p id="line20_1_4" class="speaker1">present the whole time.</p>
+            </div>
+            <div class="container">
+                <p id="line21" class="speaker2">What about the other</p>
+                <p id="line21-1" class="speaker2">lecturers and instructors?</p>
+            </div>
+            <div class="container">
+                <p id="line22" class="speaker1">Well it feels almost cliche but it seemed</p>
+                <p id="line22_1" class="speaker1">like they were actually interested </p>
+                <p id="line22_3" class="speaker1">in what we had to say.</p>
+                <p id="line22_4" class="speaker1">For example we had talks on </p>
+                <p id="line22_5" class="speaker1">sound, deafness, afro-futurism, </p>
+                <p id="line22_6" class="speaker1">all of which ended with me speaking</p>
+                <p id="line22_7" class="speaker1">directly to the instructors.</p>
+                <p id="line22_8" class="speaker1">They listened to my feedback,</p>
+                <p id="line22_9" class="speaker1">asked me questions, </p>
+                <p id="line22_1_1" class="speaker1">and responded to what I said with enthusiasm,</p>
+                <p id="line22_1_2" class="speaker1">not obligation. </p>
+            </div>
+            <div class="container">
+                <p id="line23" class="speaker2">What else did you study?</p>
+                <p id="line23_1" class="speaker2">It already sounds like quite the</p>
+                <p id="line23_2" class="speaker2">range of subjects.</p>
+            </div>
+            <div class="container">
+                <p id="line24" class="speaker1">We studied world making, </p>
+                <p id="line24_1" class="speaker1">science fiction, architecture and traditionalism,</p>
+                <p id="line24_2" class="speaker1">zine designing,</p>
+                <p id="line24_3" class="speaker1">and archiving.</p>
+            </div>
+            <div class="container">
+                <p id="line25" class="speaker2">Archiving?</p>
+            </div>
+            <div class="container">
+                <p id="line26" class="speaker1">Yes. Us.</p>
+            </div>
+            <div class="container">
+                <p id="line27" class="speaker2">This is where you thought of us then?</p>
+            </div>
+            <div class="container">
+                <p id="line28" class="speaker1">It’s where I thought of you, yes.</p>
+            </div>
+            <div class="container">
+                <p id="line29" class="speaker2">Me?</p>
+            </div>
+            <div class="container">
+                <p id="line30" class="speaker1">And me. I suppose.</p>
+            </div>
+            <div class="container">
+                <p id="line31" class="speaker2">...</p>
+            </div>
+            <div class="container">
+                <p id="line32" class="speaker1">That was actually where most of the anxiety</p>
+                <p id="line32_1" class="speaker1">about the course began to set in though.</p>
+            </div>
+            <div class="container">
+                <p id="line33" class="speaker2">Why? Us?</p>
+            </div>
+            <div class="container">
+                <p id="line34" class="speaker1">No. The rubrics and grading.</p>
+                <p id="line34_1" class="speaker1">They had very structured, organised </p>
+                <p id="line34_2" class="speaker1">grading schemes, but we were also told to </p>
+                <p id="line34_3" class="speaker1">disregard them.</p>
+                <p id="line34_5" class="speaker1">Yet, they were referred to constantly.</p>
+                <p id="line34_6" class="speaker1"> Also what the rubrik said was...confusing.</p>
+                <p id="line34_7" class="speaker1">It was not like any guideline from TU Delft anyway.</p>
+                <p id="line34_8" class="speaker1"></p>
+                <p id="line38_9" class="speaker1"></p>
+            </div>
+            <div class="container">
+                <p id="line39" class="speaker2">Yes well that is why you came here.</p>
+                <p id="line39_1" class="speaker2">I hope you embraced it.</p>
+            </div>
+            <div class="container">
+                <p id="line40" class="speaker1">I think we did. I did.</p>
+            </div>
+            <div class="container">
+                <p id="line41" class="speaker2">So your introduction was fruitful then, yes?</p>
+            </div>
+            <div class="container">
+                <p id="line42" class="speaker1">Yes. I think it did what it was meant to do.</p>
+                <p id="line42_1" class="speaker1">It scared me, but motivated me.</p>
+                <p id="line42_2" class="speaker1">Captured my attention</p>
+                <p id="line42_3" class="speaker1">It exemplified what was to come.</p>
+                <p id="line42_4" class="speaker1">It also made it easy to interact with</p>
+                <p id="line42_5" class="speaker1">the other students. It was in that first</p>
+                <p id="line42_6" class="speaker1">two weeks we</p>
+                <p id="line42_7" class="speaker1">the groups.</p>
+            </div>
+            <div class="container">
+                <p id="line43" class="speaker2">Groups?</p>
+            </div>
+            <div class="container">
+                <p id="line44" class="speaker1">Well a main part of the minor was </p>
+                <p id="line44-1" class="speaker1">this group project about...</p>
+                <p id="line44-2" class="speaker1">this feels familiar.</p>
+            </div>
+            <div class="container">
+                <p id="line45" class="speaker2">What does?</p>
+            </div>
+            <div class="container">
+                <p id="line46" class="speaker1">This conversation.</p>
+                <p id="line46-1" class="speaker1">We have spoken about groups already.</p>
+            </div>
+            <div class="container">
+                <p id="line47" class="speaker2">For us, perheaps,</p>
+                <p id="line47-1" class="speaker2">but from their perspective, maybe not.</p>
+            </div>
+            <div class="container">
+                <p id="line48" class="speaker1">Who?</p>
+            </div>
+            <div class="container">
+                <p id="line49" class="speaker2">Them.</p>
+            </div>
+            <div class="container">
+                <p id="line50" class="speaker1">Well, in that case let's have had </p>
+                <p id="line50-1" class="speaker1">this conversation already in time to come.</p>
+            </div>
+            <div class="container">
+                <p id="line51" class="speaker2">Yes, soon it is already had.</p>
+            </div>
+            <div class="container">
+                <p id="line52" class="speaker1">Anyways, after that we had weekly sessions.</p>
+            </div>
+            <div class="container">
+                <p id="line53" class="speaker2">About?</p>
+            </div>
+            <div class="container">
+                <p id="line54" class="speaker1">Everything.</p>
+            </div>
+            <div class="container">
+                <p id="line55" class="speaker2">Tell me about them.</p>
+            </div>
+            <div class="container">
+                <p id="line56" class="speaker1">Well there were six in total.</p>
+            </div>
+            <div class="container">
+                <p id="line57" class="speaker2">Tell me, please, I’m interested.</p>
+            </div>
+            <div class="container">
+                <p id="line58" class="speaker1">Well it started with sounds.</p>
+                <p id="line58-1" class="speaker1">Biphones, geophones, anthrophones, </p>
+                <p id="line58-2" class="speaker1">the relationships of us, animals and earth</p>
+                <p id="line58-3" class="speaker1">with sound.</p>
+                <p id="line58-4" class="speaker1">It was very interesting, </p>
+                <p id="line58-5" class="speaker1">it had a beautiful combination of</p>
+                <p id="line58-6" class="speaker1">factual relevance with </p>
+                <p id="line58-7" class="speaker1">philosophical fantasticism.</p>
+                <p id="line58-9" class="speaker1">After we had a discussion about how people</p>
+                <p id="line58-1-1" class="speaker1">use sound for activism and</p>
+                <p id="line58-1-2" class="speaker1">activism in general</p>
+            </div>
+            <div class="container">
+                <p id="line59" class="speaker2">It sounds dense.</p>
+            </div>
+            <div class="container">
+                <p id="line60" class="speaker1">It was, but I liked that.</p>
+                <p id="line60-1" class="speaker1">It gave me something to go back and read </p>
+                <p id="line60-2" class="speaker1">afterwards.</p>
+                <p id="line60-3" class="speaker1">There are parts even now I forgot</p>
+                <p id="line60-4" class="speaker1">I learned or wrote as I look at my notes.</p>
+                <p id="line60-5" class="speaker1">But also the way they teach here is more...</p>
+                <p id="line60-6" class="speaker1">open.</p>
+                <p id="line60-7" class="speaker1">It isn't hours of listening and cramming,</p>
+                <p id="line60-8" class="speaker1">there's discussion, engagement.</p>
+                <p id="line60-9" class="speaker1">We wandered through Rotterdam, </p>
+                <p id="line60-1-1" class="speaker1">listening to the sounds of the city</p>
+                <p id="line60-1-2" class="speaker1">We practiced activist techniques.</p>
+                <p id="line60-1-3" class="speaker1">We debated, shared, and listened.</p>
+            </div>
+            <div class="container">
+                <p id="line61" class="speaker2">Surely this is exhausting.</p>
+            </div>
+            <div class="container">
+                <p id="line62" class="speaker1">Absolutely, but it's worth it.</p>
+                <p id="line62-1" class="speaker1">It's tiring to be enthused. To be excited.</p>
+            </div>
+            <div class="container">
+                <p id="line63" class="speaker2">What about the other classes? </p>
+                <p id="line63-1" class="speaker2">Were they all the same?</p>
+            </div>
+            <div class="container">
+                <p id="line64" class="speaker1">No. Unfortunately. </p>
+                <p id="line64-1" class="speaker1">Of course there will be some that </p>
+                <p id="line64-2" class="speaker1">you don't enjoy as much, but the best ones </p>
+                <p id="line64-3" class="speaker1">I have all here, in my notes.</p>
+            </div>
+            <div class="container">
+                <p id="line65" class="speaker2">What did you use your notes for?</p>
+                <p id="line65-1" class="speaker2">There were no exams, right?</p>
+            </div>
+            <div class="container">
+                <p id="line66" class="speaker1">Well, this. The archive. </p>
+                <p id="line66-1" class="speaker1">The process of reflection.</p>
+                <p id="line66-2" class="speaker1">I constantly was looking for inspiration</p>
+                <p id="line66-3" class="speaker1">on how to discuss this later.</p>
+                <p id="line66-4" class="speaker1">This archive was an on-going process and</p>
+                <p id="line66-5" class="speaker1">required constant re-visitation.</p>
+            </div>
+            <div class="container">
+                <p id="line67" class="speaker2">We required constant visitation.</p>
+            </div>
+            <div class="container">
+                <p id="line68" class="speaker1">Yes. Next we had a workshop on</p>
+                <p id="line68-1" class="speaker1">"plant intelligence".</p>
+                <p id="line68-2" class="speaker1">As well as a more internally reflective </p>
+                <p id="line68-3" class="speaker1">workshop about presence, positionality, </p>
+                <p id="line68-4" class="speaker1">and individuality...I think.</p>
+                <p id="line68-5" class="speaker1">It required a bit more reflection than the</p>
+                <p id="line68-6" class="speaker1">others.</p>
+            </div>
+            <div class="container">
+                <p id="line69" class="speaker2">So they were not all captivating.</p>
+            </div>
+            <div class="container">
+                <p id="line70" class="speaker1">Well they were both very captivating!</p>
+                <p id="line70-1" class="speaker1">I love biology so I'm biased,</p>
+                <p id="line70-2" class="speaker1">but the plant intelligence one really</p>
+                <p id="line70-3" class="speaker1">inspired me to certain research topics</p>
+                <p id="line70-4" class="speaker1">for our project.</p>
+                <p id="line70-5" class="speaker1">I started drawing again, writing. </p>
+                <p id="line70-6" class="speaker1">I had forgotten how much </p>
+                <p id="line70-7" class="speaker1">biology really meant to me.</p>
+                <p id="line70-8" class="speaker1">The other one was just more...</p>
+                <p id="line70-9" class="speaker1">abstract.</p>
+            </div>
+            <div class="container">
+                <p id="line71" class="speaker2">And what did you take away from these</p>
+                <p id="line71-1" class="speaker2">for the archive?</p>
+            </div>
+            <div class="container">
+                <p id="line72" class="speaker1">"Next we had a workshop on</p>
+                <p id="line72-1" class="speaker1">"plant intelligence".</p>
+                <p id="line72-2" class="speaker1">As well as a more internally reflective </p>
+                <p id="line72-3" class="speaker1">workshop about presence, positionality, </p>
+                <p id="line72-4" class="speaker1">and individuality...I think.</p>
+                <p id="line72-5" class="speaker1">It required a bit more reflection than the</p>
+                <p id="line72-6" class="speaker1">others.</p>
+                <p id="line72-7" class="speaker1">\n</p>
+                <p id="line72-8" class="speaker1">So they were not all captivating.</p>
+                <p id="line72-9" class="speaker1">\n</p>
+                <p id="line72-1-1" class="speaker1">Well they were both very captivating!</p>
+                <p id="line72-1-2" class="speaker1">I love biology so I'm biased,</p>
+                <p id="line72-1-3" class="speaker1">but the plant intelligence one really</p>
+                <p id="line72-1-4" class="speaker1">inspired me to certain research topics</p>
+                <p id="line72-1-5" class="speaker1">for our project.</p>
+                <p id="line72-1-6" class="speaker1">I started drawing again, writing. </p>
+                <p id="line72-1-7" class="speaker1">I had forgotten how much </p>
+                <p id="line72-1-8" class="speaker1">biology really meant to me.</p>
+                <p id="line72-1-9" class="speaker1">The other one was just more...</p>
+                <p id="line72-2-1" class="speaker1">abstract.</p>
+                <p id="line72-2-2" class="speaker1">\n</p>
+                <p id="line72-2-3" class="speaker1">And what did you take away from these</p>
+                <p id="line72-2-4" class="speaker1">for the archive?"</p>
+            </div>
+            <div class="container">
+                <p id="line73" class="speaker2">...</p>
+            </div>
+            <div class="container">
+                <p id="line74" class="speaker1">I missed the next one, </p>
+                <p id="line74-1" class="speaker1">I read the summary and</p>
+                <p id="line74-2" class="speaker1">watched it back afterwards.</p>
+                <p id="line74-3" class="speaker1">So much about sound and music and language.</p>
+                <p id="line74-4" class="speaker1">It was all inspiring and</p>
+                <p id="line74-5" class="speaker1">frame-changing stuff.</p>
+                <p id="line74-6" class="speaker1">These types of sessions gave me these</p>
+                <p id="line74-7" class="speaker1">waves of inspired creativity every time.</p>
+                <p id="line74-8" class="speaker1">The passion, the ecstasy I was feeling</p>
+                <p id="line74-9" class="speaker1">after them for the potential of</p>
+                <p id="line74-1-1" class="speaker1">what could be was just so moving.</p>
+                <p id="line74-1-2" class="speaker1">I wanted to work.</p>
+            </div>
+            <div class="container">
+                <p id="line75" class="speaker2">And did you use this motivation?</p>
+            </div>
+            <div class="container">
+                <p id="line76" class="speaker1">Yes!</p>
+                <p id="line76-1" class="speaker1">I spent every day at the library </p>
+                <p id="line76-2" class="speaker1">or with my group thinking and talking</p>
+                <p id="line76-3" class="speaker1">about them, and developing ideas.</p>
+                <p id="line76-4" class="speaker1">And any moment I wasn’t,</p>
+                <p id="line76-5" class="speaker1">I was talking the ears off of friends</p>
+                <p id="line76-6" class="speaker1">from outside the minor.</p>
+                <p id="line76-7" class="speaker1">I only wish I had recorded more.</p>
+                <p id="line76-8" class="speaker1">I talk so much and write so little,</p>
+                <p id="line76-9" class="speaker1">I have barely anything to show.</p>
+            </div>
+            <div class="container">
+                <p id="line77" class="speaker2">You have us. </p>
+            </div>
+            <div class="container">
+                <p id="line78" class="speaker1">We do.</p>
+            </div>
+            <div class="container">
+                <p id="line79" class="speaker2">Next time though.</p>
+            </div>
+            <div class="container">
+                <p id="line80" class="speaker1">Indeed.</p>
+            </div>
+            <div class="container">
+                <p id="line81" class="speaker2">How many sessions were left?</p>
+            </div>
+            <div class="container">
+                <p id="line82" class="speaker1">Three.</p>
+            </div>
+            <div class="container">
+                <p id="line83" class="speaker2">Please,  tell me about them. </p>
+            </div>
+            <div class="container">
+                <p id="line84" class="speaker1">Yes well the next one was about an artist.</p>
+                <p id="line84-1" class="speaker1">Her work was interesting, </p>
+                <p id="line84-2" class="speaker1">about mulit-modality, sensory inputs, </p>
+                <p id="line84-3" class="speaker1">the toxicity and waste of our planet...</p>
+                <p id="line84-4" class="speaker1">but what I loved actually was </p>
+                <p id="line84-5" class="speaker1">the sources we had to prepare with.</p>
+                <p id="line84-6" class="speaker1">They were these abstract websites.</p>
+                <p id="line84-7" class="speaker1">I was in love with their visuals, </p>
+                <p id="line84-8" class="speaker1">their interactivity.</p>
+                <p id="line84-9" class="speaker1">They are actually the source of here.</p>
+            </div>
+            <div class="container">
+                <p id="line85" class="speaker2">Ah, can you show me?</p>
+            </div>
+            <div class="container">
+                <p id="line86" class="speaker1">Yes. Of course.</p>
+            </div>
+            <div class="container">
+                <p id="line87" class="speaker2">So that is our architect? Fascinating.</p>
+            </div>
+            <div class="container">
+                <p id="line88" class="speaker1">Yes, I hope it's not too similar.</p>
+            </div>
+            <div class="container">
+                <p id="line89" class="speaker2">No, we live here,</p>
+                <p id="line89-1" class="speaker2">that's what makes here this.</p>
+            </div>
+            <div class="container">
+                <p id="line90" class="speaker1">The next session was mostly dominated by</p>
+                <p id="line90-1" class="speaker1">the mid-term presentation which is </p>
+                <p id="line90-2" class="speaker1">something that has (not) been</p>
+                <p id="line90-3" class="speaker1">discussed and we will (have) </p>
+                <p id="line90-4" class="speaker1">discuss(ed) it (in some time).</p>
+            </div>
+            <div class="container">
+                <p id="line91" class="speaker2">So, just one more then?
+                </p>
+            </div>
+            <div class="container">
+                <p id="line92" class="speaker1">Yes. Our one.</p>
+            </div>
+            <div class="container">
+                <p id="line93" class="speaker2">I don't understand.</p>
+            </div>
+            <div class="container">
+                <p id="line94" class="speaker1">The last one was about archives.</p>
+                <p id="line94-1" class="speaker1">About you.</p>
+            </div>
+            <div class="container">
+                <p id="line95" class="speaker2">How did it go?</p>
+            </div>
+            <div class="container">
+                <p id="line96" class="speaker1">I could ask you.</p>
+            </div>
+            <div class="container">
+                <p id="line97" class="speaker2">We should ask them.</p>
+            </div>
+            <div class="container">
+                <p id="line98" class="speaker1">Well actually,</p>
+                <p id="line98-1" class="speaker1">I wanted to ask you first.</p>
+                <p id="line98-2" class="speaker1">You never get asked questions.</p>
+            </div>
+            <div class="container">
+                <p id="line99" class="speaker2">Well, I suppose existence is nice.</p>
+                <p id="line99-1" class="speaker2">I was worried I would only ever be </p>
+                <p id="line99-2" class="speaker2">the unused potential of an idea </p>
+                <p id="line99-3" class="speaker2">buried at the back of your mind.</p>
+                <p id="line99-4" class="speaker2">It felt like it was going that way </p>
+                <p id="line99-5" class="speaker2">for a while. </p>
+                <p id="line99-6" class="speaker2">Also with all those computer issues </p>
+                <p id="line99-7" class="speaker2">at the end, you almost </p>
+                <p id="line99-8" class="speaker2">scrapped me entirely.</p>
+            </div>
+            <div class="container">
+                <p id="line100" class="speaker1">I was worried we would come across as</p>
+                <p id="line100-1" class="speaker1">pretentious.</p>
+                <p id="line100-2" class="speaker1">Or worse not at all, </p>
+                <p id="line100-3" class="speaker1">it wouldn’t make sense or</p>
+                <p id="line100-4" class="speaker1">we’d run out of time.</p>
+            </div>
+            <div class="container">
+                <p id="line101" class="speaker2">Well, in some ways we are pretentious.</p>
+                <p id="line101-1" class="speaker2">But sometimes it's fun to be that way.</p>
+                <p id="line101-2" class="speaker2">I'm glad you overcame your fear about </p>
+                <p id="line101-3" class="speaker2">not looking artistic enough or </p>
+                <p id="line101-4" class="speaker2">not being original.</p>
+                <p id="line101-5" class="speaker2">And for persevering regardless of the struggles.</p>
+                <p id="line101-6" class="speaker2">Of course I’m biased, </p>
+                <p id="line101-7" class="speaker2">and in some way I am also you, </p>
+                <p id="line101-8" class="speaker2">but I really appreciate you doing this for me.</p>
+            </div>
+            <div class="container">
+                <p id="line102" class="speaker1">And I appreciate all your help during this minor,</p>
+                <p id="line102-1" class="speaker1">guiding me, quietly. </p>
+            </div>
+            <div class="container">
+                <p id="line103" class="speaker2">I'm glad you heard me</p>
+                <p id="line103-1" class="speaker2">and that you listened (when you did).</p>
+                <p id="line103-2" class="speaker2">Thank you.</p>
+            </div>
+            <div class="container">
+                <p id="line104" class="speaker1">You're welcome.</p>
+            </div>
+            <div class="container">
+                <p id="line105" class="speaker2">So how did I do?</p>
+                <p id="line105-1" class="speaker2">Am I living up to what you thought of me?</p>
+            </div>
+            <div class="container">
+                <p id="line106" class="speaker1">There's a lot more I wish I had done for</p>
+                <p id="line106-1" class="speaker1">this whole archive.</p>
+                <p id="line106-2" class="speaker1">I wished I could've given you a voice.</p>
+                <p id="line106-3" class="speaker1">You have such a beautiful voice in my head.</p>
+            </div>
+            <div class="container">
+                <p id="line107" class="speaker2">What do I sound like?</p>
+            </div>
+            <div class="container">
+                <p id="line108" class="speaker1">Part of you sounds like me, us, singing.</p>
+                <p id="line108-1" class="speaker1">Another part is just instruments.</p>
+                <p id="line108-2" class="speaker1">Your voice is not bound by lungs or chords,</p>
+                <p id="line108-3" class="speaker1">just tones.</p>
+                <p id="line108-4" class="speaker1">You sound like brass.</p>
+            </div>
+            <div class="container">
+                <p id="line109" class="speaker2">Well. Next time.</p>
+            </div>
+            <div class="container">
+                <p id="line110" class="speaker1">Yes.</p>
+            </div>
+            <div class="container">
+                <p id="line111" class="speaker2">I suppose all that's left with the minor</p>
+                <p id="line111-1" class="speaker2">is this then, </p>
+                <p id="line111-2" class="speaker2">I suppose it’s my turn to work.</p>
+            </div>
+            <div class="container">
+                <p id="line112" class="speaker1">No. I’ll be there too.</p>
+                <p id="line112-1" class="speaker1">We’ll meet them together, like this.</p>
+                <p id="line112-2" class="speaker1">They’ll judge both of us.</p>
+            </div>
+            <div class="container">
+                <p id="line113" class="speaker2">Well, let's finish this then and meet them.</p>
+                <p id="line113-1" class="speaker2">Will they like this?</p>
+                <p id="line113-2" class="speaker2">Have you stuck to the rubric?</p>
+            </div>
+            <div class="container">
+                <p id="line114" class="speaker1">Well, I think that rubric was </p>
+                <p id="line114-1" class="speaker1">much more of a suggestion anyway.</p>
+                <p id="line114-2" class="speaker1">To be honest...I like this. I like you.</p>
+                <p id="line114-3" class="speaker1">They have come to judge us for sure, </p>
+                <p id="line114-4" class="speaker1">to see what this is, but at the end of the day </p>
+                <p id="line114-5" class="speaker1">this isn’t for them. It's for me. For us.</p>
+                <p id="line114-6" class="speaker1">You’re who I made this for, me, I mean. </p>
+                <p id="line114-7" class="speaker1">Who knows, maybe they’ll see this as inspiration</p>
+                <p id="line114-8" class="speaker1">to meet their own them.</p>
+                <p id="line114-9" class="speaker1">Wouldn’t that be nice?</p>
+            </div>
+            <div class="container">
+                <p id="line115" class="speaker2">Yes. It would.</p>
+            </div>
+            <div class="container">
+                <p id="line116" class="speaker1">So, shall we introduce them to them, then?</p>
+            </div>
+            <div class="container">
+                <p id="line117" class="speaker2">Yes...Thank you.</p>
+            </div>
+            <div class="container">
+                <p id="line118" class="speaker1">And thank you.</p>
+            </div>
+            <div class="container">
+                <p id="line119" class="speaker2">...</p>
+            </div>
+            <div class="container">
+                <p id="line120" class="speaker1">...</p>
+            </div>
+            <div class="container">
+                <p id="line121" class="speaker2">...</p>
+            </div>
+            <div class="container">
+                <p id="line123" class="speaker1">C'mon, let's go.</p>
+            </div>
+
+        </div>
+        <div id="pictureBar"></div>
+    </div>
+
+    <div id="bottomSection">
+        <div id="webcamContainer">
+            <canvas class="videoCanvas"></canvas>
+            <video id="video" style="display:none"></video>
+            <button id="go_home">GOODBYE</button>
+        </div>
+    </div>
+
+</body>
+</html>
