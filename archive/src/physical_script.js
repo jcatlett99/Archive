@@ -11,70 +11,16 @@ function loadImage(path, id, css, target) {
 }
 
 let css1 = '';
-let css2 = 'grid-column: span 2;';
-let css3 = 'border-color: red; border-style:solid;'
+let css2 = 'grid-column: 1 / span 2;';
+let css3 = 'grid-column: span 3;';
 
-for (let i = 0; i < 33; i++) {
-    if (i == 1 || i == 7 || i == 11 || i == 14 || i == 15 || i == 17 || i == 19 || i == 20) {
-        loadImage('/images/' + i + '.jpg', 'image1', css2,'#pictureBar');
-    } else if (i == 22) {
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    } else if (i == 23) {
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    } else if (i == 25) {
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    } else if (i == 26) {
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    } else if (i == 27) {
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    } else if (i == 28) {
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    } else if (i == 29) {
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    } else if (i == 30) {
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-    }  else if (i == 31) {
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    } else if (i == 32) {
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    } else if ( i==2 ) {
-        // do nothing
+for (let i = 0; i < 39; i++) {
+    if (i == 6 || i == 8 || i == 12 || i == 13 || i == 17 || i == 1 || i == 22) {
+        loadImage('/physical_images/' + i + '.jpg', 'image1', css2,'#pictureBar');
+    } else if (i == 2  || i == 3 || i == 20 || i == 24) {
+        loadImage('/physical_images/' + i + '.jpg', 'image1', css3,'#pictureBar');
     } else {
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-    }
-
-
-}
-
-for (let i = 0; i < 24; i++) {
-    loadImage('/images/blank.png', 'image1', css1, '#pictureBar');
-}
-
-for (let i = 33; i < 53; i++) {
-    if (i == 42 || i == 43 || i == 49 || i == 51 || i == 52) {
-        loadImage('/images/' + i + '.jpg', 'image1', css2, '#pictureBar');
-    } else {
-        loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
+        loadImage('/physical_images/' + i + '.jpg', 'image1', css1, '#pictureBar');
     }
 }
 

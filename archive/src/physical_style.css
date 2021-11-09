@@ -38,12 +38,12 @@ h1 {
 
 #parent {
     width: 100%;
-    height: 15000px;
+    height: 16000px;
     position: relative;
 }
 
 #textBar {
-    width: 48%;
+    width: 30%;
     height: 100%;
 
     background: rgb(24, 24, 30);
@@ -52,11 +52,12 @@ h1 {
     position: absolute;
 }
 
-.containerText {
+.container {
     float: top;
     width: 100%;
     display: inline-block;
-    margin-top: 100px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
 
 .speaker1{
@@ -91,7 +92,7 @@ h1 {
 }
 
 #pictureBar {
-    width: 50%;
+    width: 67%;
     height: 100%;
 
     background: rgb(24, 24, 30);
