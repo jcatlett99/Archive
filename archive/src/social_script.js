@@ -2,25 +2,33 @@
 
 export function social(THREE) {
 
-    function loadImage(path, id, css, target) {
-        $('<img class="images" id="' + id + '" src="' + path + '" style="' + css + '">').load(function () {
-            $(this).appendTo(target);
-        });
+    let image_array = [];
+    let css3_array = [15, 29];
+    let css2_array = [0, 1, 6, 8, 13, 26, 27, 33, 37];
+
+    for (let i = 0; i < 40; i++) {
+        let imgPreload = new Image();
+        let temp = {name: i, value: $(imgPreload).attr({src: '/social_images/' + i + '.jpg'})};
+        image_array.push(temp);
     }
 
-    let css1 = '';
-    let css2 = 'grid-column: 1 / span 2;';
-    let css3 = 'grid-column: span 3;';
+    for (let i = 0; i < image_array.length; i++) {
+        let img = document.createElement("img");
+        img.src = image_array[i].value.get(0).currentSrc;
+        img.classList.add("images");
 
-    for (let i = 0; i < 41; i++) {
-        if (i == 0 || i == 1 || i == 6 || i == 8 || i == 13 || i == 26 || i == 27 || i == 32 || i == 36) {
-            loadImage('/social_images/' + i + '.jpg', 'image1', css2, '#pictureBar');
-        } else if (i == 15 || i == 29) {
-            loadImage('/social_images/' + i + '.jpg', 'image1', css3, '#pictureBar');
-        } else {
-            loadImage('/social_images/' + i + '.jpg', 'image1', css1, '#pictureBar');
+        if (css2_array.includes(i)) img.style.gridColumn = '1 / span 2';
+        if (css3_array.includes(i)) img.style.gridColumn = 'span 3';
+
+        document.querySelector('#pictureBar').appendChild(img);
+    }
+
+    window.onload = function() {
+        if(!window.location.hash) {
+            window.location = window.location + '#loaded';
+            window.location.reload();
         }
-    }
+    };
 
     const textureLoader = new THREE.TextureLoader();
     const normalTexture = textureLoader.load('/textures/v1.png');

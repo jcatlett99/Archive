@@ -2,78 +2,45 @@
 
 export function personal(THREE) {
 
+    let image_array = [];
+    let png_array = [22, 24, 25, 26, 29, 31, 33, 35, 36, 37, 39, 40, 41, 43, 44, 45, 46];
+    let css2_array = [13, 14, 16, 18, 19, 1, 3, 6, 57, 58, 65, 66];
 
-    function loadImage(path, id, css, target) {
-        $('<img class="images" id="' + id + '" src="' + path + '" style="' + css + '">').load(function () {
-            $(this).appendTo(target);
-        });
-    }
-
-    let css1 = '';
-    let css2 = 'grid-column: span 2;';
-    let css3 = 'border-color: red; border-style:solid;'
-
-    for (let i = 0; i < 33; i++) {
-        if (i == 1 || i == 7 || i == 11 || i == 14 || i == 15 || i == 17 || i == 19 || i == 20) {
-            loadImage('/images/' + i + '.jpg', 'image1', css2, '#pictureBar');
-        } else if (i == 22) {
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-            loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-        } else if (i == 23) {
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-            loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-        } else if (i == 25) {
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-            loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-        } else if (i == 26) {
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-            loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-        } else if (i == 27) {
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-            loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-        } else if (i == 28) {
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-            loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-        } else if (i == 29) {
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-            loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-        } else if (i == 30) {
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-            loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-        } else if (i == 31) {
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-            loadImage('/images/blank' + i + '.png', 'image1', css1, '#pictureBar');
-            loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-        } else if (i == 32) {
-            loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
-        } else if (i == 2) {
-            // do nothing
+    for (let i = 0; i < 67; i++) {
+        if (png_array.includes(i)) {
+            let imgPreload = new Image();
+            let temp = {name: i, value: $(imgPreload).attr({src: '/images/' + i + '.png'})};
+            image_array.push(temp);
+        } else if (i == 47) {
+            let imgPreload = new Image();
+            let temp = {name: i, value: $(imgPreload).attr({src: '/images/' + i + '.jpg'})};
+            image_array.push(temp);
+            for (let j = 0; j < 23; j++){
+                let imgPreload = new Image();
+                let temp = {name: j, value: $(imgPreload).attr({src: '/images/40.png'})};
+                image_array.push(temp);
+            }
         } else {
-            loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
+            let imgPreload = new Image();
+            let temp = {name: i, value: $(imgPreload).attr({src: '/images/' + i + '.jpg'})};
+            image_array.push(temp);
         }
-
-
     }
 
-    for (let i = 0; i < 24; i++) {
-        loadImage('/images/blank.png', 'image1', css1, '#pictureBar');
+    for (let i = 0; i < image_array.length; i++) {
+        let img = document.createElement("img");
+        img.src = image_array[i].value.get(0).currentSrc;
+        img.classList.add("images");
+
+        if (css2_array.includes(i)) img.style.gridColumn = 'span 2';
+
+        document.querySelector('#pictureBar').appendChild(img);
     }
 
-    for (let i = 33; i < 53; i++) {
-        if (i == 42 || i == 43 || i == 49 || i == 51 || i == 52) {
-            loadImage('/images/' + i + '.jpg', 'image1', css2, '#pictureBar');
-        } else {
-            loadImage('/images/' + i + '.jpg', 'image1', css1, '#pictureBar');
+    window.onload = function() {
+        if(!window.location.hash) {
+            window.location = window.location + '#loaded';
+            window.location.reload();
         }
     }
 
@@ -83,7 +50,6 @@ export function personal(THREE) {
 
     const canvas = document.querySelector('canvas.webgl');
     const scene = new THREE.Scene();
-// const gui = new dat.GUI();
 
     const geometrySphere = new THREE.SphereBufferGeometry(1, 64, 64);
     geometrySphere.translate(0, 0, 0);
@@ -201,9 +167,6 @@ export function personal(THREE) {
     });
 
     window.onscroll = function() {
-        console.log(window.innerHeight)
-        console.log(window.pageYOffset)
-        console.log(document.body.offsetHeight)
         if (window.pageYOffset >= 15000) {
 
             const video = document.querySelector('#sim');
