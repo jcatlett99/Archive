@@ -127,10 +127,10 @@ export function social(THREE) {
     $(window).scroll(function () {
         const children = document.querySelector('#textBar').childNodes;
         children.forEach(child => {
-            console.log(child)
+            // console.log(child)
             child.childNodes.forEach(grandchild => {
                 if (grandchild.id != null && isScrolledIntoView('#' + grandchild.id)) {
-                    console.log("#..", grandchild.id)
+                    // console.log("#..", grandchild.id)
                     $('#' + grandchild.id).addClass('animation');
                 }
             })
@@ -195,6 +195,13 @@ export function social(THREE) {
         progress.style.width = `${progressPercent}%`
     }
 
-    audio.addEventListener('timeupdate', updateProgress)
+    audio.addEventListener('timeupdate', updateProgress);
+    audio.addEventListener('ended', () => {
+        document.location.href = "/index.html";
+    });
+
+    document.querySelector('#home_container').addEventListener('click', () => {
+        document.location.href = "/index.html";
+    });
 
 }

@@ -13,6 +13,28 @@ body
 
 }
 
+#skipButton {
+
+    right: 1%;
+    bottom: 1%;
+
+    width: 100px;
+    height: auto;
+
+    position: absolute;
+
+    border-radius: 16px;
+    border-color: transparent;
+
+    background: rgb(40, 40, 48);
+    color: rgb(90, 90, 108);
+    text-align: center;
+    padding: 5px;
+
+    z-index: 10;
+    visibility: visible;
+}
+
 #video {
     width: 100%;
     height: auto;

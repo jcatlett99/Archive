@@ -250,4 +250,10 @@ export function physical(THREE, OBJLoader) {
             })
         });
     });
+
+    document.querySelector('#go_home').addEventListener('click', () => {
+
+        document.location.href = "/index.html";
+
+    });
 }

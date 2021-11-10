@@ -308,4 +308,10 @@ export function index(OBJLoader, THREE) {
             vid.classList.add("fadeOut");
         });
     }
+
+    document.querySelector('#skipButton').addEventListener('click', () => {
+
+        vid.currentTime = vid.duration - 0.1;
+
+    });
 }

@@ -170,29 +170,52 @@ export function personal(THREE) {
     });
 
 
-    function isScrolledIntoView(elem) {
+    function isScrolledIntoView(elem, v) {
+
         let docViewTop = $(window).scrollTop();
         let docViewBottom = docViewTop + $(window).height();
 
         let elemTop = $(elem).offset().top;
         let elemBottom = elemTop + $(elem).height();
 
-        console.log(elemBottom, ":", docViewBottom, " | ", elemTop, ":", docViewTop)
+        // console.log(elemBottom, ":", docViewBottom, " | ", elemTop, ":", docViewTop)
 
-        return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+        if (!v) return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+
+        return ((elemBottom <= docViewBottom) || (elemTop >= docViewTop))
     }
 
     $(window).scroll(function () {
+
+
         const children = document.querySelector('#textBar').childNodes;
         children.forEach(child => {
-            console.log(child)
+            // console.log(child)
             child.childNodes.forEach(grandchild => {
                 if (grandchild.id != null && isScrolledIntoView('#' + grandchild.id)) {
-                    console.log("#..", grandchild.id)
+                    // console.log("#..", grandchild.id)
                     $('#' + grandchild.id).addClass('animation');
                 }
             })
         });
+    });
+
+    window.onscroll = function() {
+        console.log(window.innerHeight)
+        console.log(window.pageYOffset)
+        console.log(document.body.offsetHeight)
+        if (window.pageYOffset >= 15000) {
+
+            const video = document.querySelector('#sim');
+            if (video != null) {
+                video.play();
+                document.querySelector('#sim').classList.add('fadeVideo');
+            }
+        }
+    };
+
+    document.querySelector('#home_container').addEventListener('click', () => {
+        document.location.href = "/index.html";
     });
 
 }
