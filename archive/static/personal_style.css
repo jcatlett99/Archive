@@ -8,20 +8,13 @@ html,
 body
 {
     height: 100vh;
-    font-family: 'Josefin Sans';
+    font-family: 'Helvetica';
     background:rgb(24, 24, 30) ;
+    position: relative;
 }
 
 body{
     overflow-x: hidden;
-}
-
-.webgl {
-    position: absolute;
-    top: 0;
-    left: 0;
-    outline: none;
-    mix-blend-mode: exclusion;
 }
 
 #titleContainer {
@@ -36,50 +29,104 @@ h1 {
     color: white;
 }
 
-#parent {
+.webgl {
+    position: absolute;
+    top: 0;
+    left: 0;
+    outline: none;
+    mix-blend-mode: exclusion;
+}
+
+.parent {
     width: 100%;
-    height: 15000px;
+    /* height: 5000px; */
+    /* overflow: scroll; */
     position: relative;
+    display:flex;
 }
 
 #textBar {
+    border: medium solid red;
     width: 48%;
-    height: 100%;
+    /* overflow: scroll; */
+    /* height: 1000px; */
 
     background: rgb(24, 24, 30);
 
-    left: 1%;
-    position: absolute;
+    float: left;
+    /* flex:1; */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    /* position: relative; */
 }
 
 .containerText {
-    float: top;
-    width: 100%;
+    clear: both;
+    /* float: top; */
+    padding: 3% 3% 0% 3%;
+
+    width: 94%;
     display: inline-block;
-    margin-top: 75px;
+    /* margin-top: 75px; */
 }
 
 .speaker1{
-    position: relative;
-    font-size: 150%;
-    white-space: nowrap;
+    /* position: relative; */
+    border: medium solid green;
+
+    /* font-size: 150%; */
+    /* white-space: nowrap; */
     overflow: hidden;
     visibility: hidden;
     color: #ffffff;
+    white-space: wrap;
 }
 
 .speaker2{
-    position: relative;
-    font-size: 150%;
-    white-space: nowrap;
+    /* position: relative; */
+    border: medium solid blue;
+    margin-left: auto;
+    margin-right: 0%;
+
+    /* font-size: 150%; */
+    /* white-space: nowrap; */
     overflow: hidden;
     visibility: hidden;
     color: #ffffff;
-    float: right;
-    display: inline-block;
+    /* float: right; */
+    /* display: inline-block; */
     text-align: right;
+    white-space: wrap;
 
 }
+
+#pictureBar {
+    width: 50%;
+
+    background: rgb(24, 24, 30);
+
+    float: left;
+    /* position: relative; */
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 1rem;
+    flex:1;
+}
+
+.images {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    visibility: hidden;
+
+    /* float: top; */
+}
+
+/* ************** */
+/* Text animation */
+/* ************** */
 
 .animation{
     visibility: visible;
@@ -91,60 +138,12 @@ h1 {
     to{width: 100%;}
 }
 
-#pictureBar {
-    width: 50%;
-    height: 100%;
-
-    background: rgb(24, 24, 30);
-
-    right: 0;
-    position: absolute;
-
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 1rem;
-}
-
-.images {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    visibility: hidden;
-
-    float: top;
-}
-
-#sim {
-    width: 100%;
-    height: auto;
-    visibility: hidden;
-
-    z-index: 1;
-}
-
-#simulation {
-
-    margin-top: 3%;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
-#simulation video {
-    min-width: 100%;
-    min-height: 100%;
-
-    width: auto;
-    height: auto;
-
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%,-50%);
-}
+/* ***************** */
+/* Picture animation */
+/* ***************** */
 
 .fadeIn {
-    /*-webkit-animation: animat_show 0.8s;*/
+    -webkit-animation: animat_show 0.8s;
     animation: animat_show 0.8s;
     visibility: visible !important;
 }
@@ -153,7 +152,6 @@ h1 {
     0%{opacity:0}
     100%{opacity:1}
 }
-
 .fadeVideo {
     animation: change_darkness 5s;
     visibility: visible !important;
@@ -163,10 +161,34 @@ h1 {
     100%{opacity: 1}
 }
 
+
+#simulation {
+    clear:both;
+    /* margin-top: 3%; */
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+#sim {
+    width: 100%;
+    height: auto;
+}
+/* #simulation video {
+
+    width: auto;
+    height: auto;
+
+    /* position: absolute; */
+    /* top: 50%; */
+    /* left: 50%; */
+    /* transform: translate(-50%,-50%); */
+/* } */
+
 #home_container {
 
-    position: absolute;
-    bottom: 20px;
+    position: relative;
+    bottom: 3rem;
     margin-left: calc(50% - 20px);
 
     height: 25px;
@@ -180,7 +202,5 @@ h1 {
 
     background-color: rgb(45, 45, 53);
     box-shadow: 0px 0px 20px rgb(161, 0, 27);
-
-    z-index: 10;
 }
 
