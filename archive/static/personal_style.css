@@ -43,10 +43,11 @@ h1 {
     /* overflow: scroll; */
     position: relative;
     display:flex;
+    margin-bottom: 3rem;
 }
 
 #textBar {
-    border: medium solid red;
+    /* border: medium solid red; */
     width: 48%;
     /* overflow: scroll; */
     /* height: 1000px; */
@@ -73,36 +74,36 @@ h1 {
 
 .speaker1{
     /* position: relative; */
-    border: medium solid green;
+    /* border: medium solid green; */
 
     /* font-size: 150%; */
-    /* white-space: nowrap; */
+    white-space: nowrap;
     overflow: hidden;
     visibility: hidden;
     color: #ffffff;
-    white-space: wrap;
+    /* white-space: wrap; */
 }
 
 .speaker2{
     /* position: relative; */
-    border: medium solid blue;
+    /* border: medium solid blue; */
     margin-left: auto;
     margin-right: 0%;
 
     /* font-size: 150%; */
-    /* white-space: nowrap; */
+    white-space: nowrap;
     overflow: hidden;
     visibility: hidden;
     color: #ffffff;
     /* float: right; */
     /* display: inline-block; */
     text-align: right;
-    white-space: wrap;
+    /* white-space: wrap; */
 
 }
 
 #pictureBar {
-    border: medium solid yellow;
+    /* border: medium solid yellow; */
     width: 50%;
     height: 100%;
 

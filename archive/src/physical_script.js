@@ -250,10 +250,10 @@ export function physical(THREE, OBJLoader) {
     $(window).scroll(function () {
         const children = document.querySelector('#textBar').childNodes;
         children.forEach(child => {
-            console.log(child)
+            // console.log(child)
             child.childNodes.forEach(grandchild => {
                 if (grandchild.id != null && isScrolledIntoView('#' + grandchild.id)) {
-                    console.log("#..", grandchild.id)
+                    // console.log("#..", grandchild.id)
                     $('#' + grandchild.id).addClass('animation');
                 }
             })
