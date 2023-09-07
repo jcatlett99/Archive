@@ -173,7 +173,8 @@ export function personal(THREE) {
      ******************************* */
 
     function isScrolledIntoView(elem, v) {
-
+        console.log("...checking");
+        debugger;
         let docViewTop = $(window).scrollTop();
         let docViewBottom = docViewTop + $(window).height();
 
@@ -186,12 +187,14 @@ export function personal(THREE) {
     }
 
     $(window).scroll(function () {
-        const children = document.querySelector('#textBar').childNodes;
+        const children = document.querySelector('.text-subdivision').childNodes;
         children.forEach(child => {
-            // console.log(child)
+            console.log("------CHILD------")
+            console.log(child)
+            console.log("---2--CHILD------")
             child.childNodes.forEach(grandchild => {
                 if (grandchild.id != null && isScrolledIntoView('#' + grandchild.id)) {
-                    // console.log("#..", grandchild.id)
+                    console.log("#..", grandchild.id)
                     $('#' + grandchild.id).addClass('animation');
                 }
             })
