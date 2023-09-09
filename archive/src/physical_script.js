@@ -2,13 +2,14 @@ import "../static/personal_style.css";
 import file from "../static/maze.json";
 
 export function physical(THREE, OBJLoader) {
-
   let c = document.getElementById("raycastingCanvas");
   let context = c.getContext("2d");
-  let canvasWidth = (c.width = window.innerWidth - 32);
-  let canvasHeight = (c.height = window.innerHeight - 100);
-  let offsetX = c.offsetLeft;
-  let offsetY = c.offsetTop;
+  let x_offset = 32;
+  let y_offset = 100;
+  let canvasWidth = (c.width = window.innerWidth - x_offset);
+  let canvasHeight = (c.height = window.innerHeight - y_offset);
+  let offsetX = c.getBoundingClientRect().left;
+  let offsetY = c.getBoundingClientRect().top;
   let cols = 30;
   let rows = 30;
 
@@ -17,16 +18,88 @@ export function physical(THREE, OBJLoader) {
 
   let gridJSON = file;
 
-  let current;
-
   let mouse = {
     x: 0,
     y: 0,
   };
 
+  let startX;
+  let startY;
+
+  console.log(offsetX + ", " + offsetY);
+
+  let mouseDown = function (event) {
+    event.preventDefault();
+
+    startX = parseInt(event.clientX - offsetX);
+    startY = parseInt(event.clientY - offsetY);
+
+    console.log(startX, startY);
+    if (
+      startX > shape.x &&
+      startX < shape.x + shape.width &&
+      startY > shape.y &&
+      startY < shape.y + shape.height
+    ) {
+      console.log("Pressed");
+      is_dragging = true;
+      return;
+    }
+  };
+
+  let mouseUp = function (event) {
+    if (!is_dragging) {
+      return;
+    }
+    event.preventDefault();
+    is_dragging = false;
+  };
+
+  let mouseOut = function (event) {
+    if (!is_dragging) {
+      return;
+    }
+    event.preventDefault();
+    is_dragging = false;
+  };
+
   let mouseMove = function (event) {
     mouse.x = event.pageX - offsetX;
     mouse.y = event.pageY - offsetY;
+
+    if (is_dragging) {
+      event.preventDefault();
+      let mouseX = parseInt(event.clientX - offsetX);
+      let mouseY = parseInt(event.clientY - offsetY);
+
+      let dx = mouseX - startX;
+      let dy = mouseY - startY;
+
+      for (let wall of walls) {
+        let a = wall.a;
+        let b = wall.b;
+
+        if (
+          a.y < shape.y + dy + shape.height &&
+          b.y > shape.y + dy &&
+          a.x < shape.x + dx + shape.width &&
+          b.x > shape.x + dx &&
+          wall.collidable
+        ) {
+          console.log("intersect!");
+          is_dragging = false;
+          return;
+        }
+      }
+
+      shape.x += dx;
+      shape.y += dy;
+
+      drawShape();
+
+      startX = mouseX;
+      startY = mouseY;
+    }
   };
 
   c.addEventListener("mousemove", mouseMove);
@@ -85,12 +158,12 @@ export function physical(THREE, OBJLoader) {
     }
   };
 
-  let Cell = function (i, j, walls) {
+  let Cell = function (i, j, walls, collidable) {
     this.i = i;
     this.j = j;
 
     this.walls = walls;
-    this.visited = false;
+    this.collidable = collidable;
   };
 
   Cell.prototype.show = function () {
@@ -99,39 +172,57 @@ export function physical(THREE, OBJLoader) {
 
     if (this.walls[0])
       walls.push(
-        new Boundary(new Vector(x, y), new Vector(x + canvasWidth / cols, y))
+        new Boundary(
+          new Vector(x, y),
+          new Vector(x + canvasWidth / cols, y),
+          this.collidable
+        )
       );
     if (this.walls[1])
       walls.push(
         new Boundary(
           new Vector(x + canvasWidth / cols, y),
-          new Vector(x + canvasWidth / cols, y + canvasHeight / rows)
+          new Vector(x + canvasWidth / cols, y + canvasHeight / rows),
+          this.collidable
         )
       );
     if (this.walls[2])
       walls.push(
         new Boundary(
           new Vector(x + canvasWidth / cols, y + canvasHeight / rows),
-          new Vector(x, y + canvasHeight / rows)
+          new Vector(x, y + canvasHeight / rows),
+          this.collidable
         )
       );
     if (this.walls[3])
       walls.push(
-        new Boundary(new Vector(x, y + canvasHeight / rows), new Vector(x, y))
+        new Boundary(
+          new Vector(x, y + canvasHeight / rows),
+          new Vector(x, y),
+          this.collidable
+        )
       );
   };
 
   // boundary object a: vector, b: vector
-  let Boundary = function (aVec, bVec) {
+  let Boundary = function (aVec, bVec, collision) {
     this.a = aVec;
     this.b = bVec;
+    this.collidable = collision;
   };
 
-  Boundary.prototype.draw = function (ctx) {
+  Boundary.prototype.draw = function (ctx, color) {
     ctx.beginPath();
     ctx.moveTo(this.a.x, this.a.y);
     ctx.lineTo(this.b.x, this.b.y);
-    ctx.strokeStyle = "rgba(255, 255, 255, 1)";
+
+    if (color === "white") {
+      ctx.strokeStyle = "rgba(255, 255, 255, 1)";
+    } else if (color === "red") {
+      ctx.strokeStyle = "rgba(255, 0, 0, 1)";
+    } else {
+      ctx.strokeStyle = "rgba(0, 0, 0, 1)";
+    }
     ctx.stroke();
   };
 
@@ -172,73 +263,57 @@ export function physical(THREE, OBJLoader) {
     }
   };
 
-  // particle object
-  let Particle = function (pos, divisor) {
-    this.pos = pos;
-    this.rays = [];
-    this.divisor = divisor || 10; // the degree of approximation
-    for (let a = 0; a < 360; a += this.divisor) {
-      this.rays.push(new Ray(this.pos, degreeToRadian(a)));
+  let castRays = function (shape) {
+    let pos = new Vector(shape.x + shape.width / 2, shape.y + shape.height / 2);
+    let rays = [];
+    for (let a = 0; a < 360; a += 1) {
+      rays.push(new Ray(pos, degreeToRadian(a)));
     }
-  };
 
-  Particle.prototype.update = function (x, y) {
-    this.pos.x = x;
-    this.pos.y = y;
-  };
-
-  Particle.prototype.look = function (ctx, walls) {
-    for (let i = 0; i < this.rays.length; i++) {
+    for (let i = 0; i < rays.length; i++) {
       let pt;
       let closest = null;
       let record = Infinity;
+      let w = -1;
 
       for (let j = 0; j < walls.length; j++) {
-        pt = this.rays[i].cast(walls[j]);
-
+        pt = rays[i].cast(walls[j]);
         if (pt) {
-          const dist = Vector.dist(this.pos, pt);
+          const dist = Vector.dist(pos, pt);
           if (dist < record) {
             record = dist;
             closest = pt;
+            w = j;
           }
         }
       }
-
       if (closest) {
-        ctx.beginPath();
-        ctx.moveTo(this.pos.x, this.pos.y);
-        ctx.lineTo(closest.x, closest.y);
-        ctx.strokeStyle = "rgba(255, 255, 255, 0.4)";
-        ctx.stroke();
+        walls[w].draw(context, "white");
+        context.beginPath();
+        context.moveTo(pos.x, pos.y);
+        context.lineTo(closest.x, closest.y);
+        context.strokeStyle = "rgba(255, 255, 255, 0.4)";
+        context.stroke();
       }
     }
   };
 
-  Particle.prototype.draw = function (ctx) {
-    ctx.beginPath();
-    ctx.arc(this.pos.x, this.pos.y, 5, 0, 2 * Math.PI);
-    ctx.strokeStyle = "rgba(255, 255, 255, 1)";
-    ctx.stroke();
-    /* test line to show all rays
-      for (let i = 0; i < this.rays.length; i++) {
-        this.rays[i].draw(ctx);
-      }*/
+  let shape = { x: 1, y: 1, width: 10, height: 10, color: "white" };
+  let drawShape = function () {
+    // context.clearRect(0, 0, canvasWidth, canvasHeight);
+    context.fillStyle = shape.color;
+    context.fillRect(shape.x, shape.y, shape.width, shape.height);
   };
+  let is_dragging = false;
 
   for (let index in gridJSON) {
     let item = gridJSON[index];
-    let cell = new Cell(item.i, item.j, item.walls);
+    let cell = new Cell(item.i, item.j, item.walls, item.collidable);
     grid.push(cell);
     cell.show();
   }
 
-  console.log(grid);
-
-  current = grid[0];
-  current.visited = true;
-
-  // let wall = new Boundary(new Vector(375, 250), new Vector(375,50));
+  // let wall = new Boundary(new Vector(375, 250), new Vector(375, 50));
   // walls.push(wall);
   // let wall2 = new Boundary(new Vector(100, 100), new Vector(250, 250));
   // walls.push(wall2);
@@ -246,22 +321,23 @@ export function physical(THREE, OBJLoader) {
   // walls.push(wall3);
   // let wall4 = new Boundary(new Vector(50, 50), new Vector(250, 50));
   // walls.push(wall4);
-  let wall5 = new Boundary(new Vector(0, 0), new Vector(0, canvasHeight));
+
+  let wall5 = new Boundary(new Vector(0, 0), new Vector(0, canvasHeight), true);
   walls.push(wall5);
-  let wall6 = new Boundary(new Vector(0, 0), new Vector(canvasWidth, 0));
+  let wall6 = new Boundary(new Vector(0, 0), new Vector(canvasWidth, 0), true);
   walls.push(wall6);
   let wall8 = new Boundary(
     new Vector(0, canvasHeight),
-    new Vector(canvasWidth, canvasHeight)
+    new Vector(canvasWidth, canvasHeight),
+    true
   );
   walls.push(wall8);
   let wall7 = new Boundary(
     new Vector(canvasWidth, 0),
-    new Vector(canvasWidth, canvasHeight)
+    new Vector(canvasWidth, canvasHeight),
+    true
   );
   walls.push(wall7);
-
-  let particle = new Particle(new Vector(200, 200), 1);
 
   // main loop
   let main = function () {
@@ -271,14 +347,15 @@ export function physical(THREE, OBJLoader) {
     context.fillRect(0, 0, canvasWidth, canvasHeight);
 
     for (let i = 0; i < walls.length; i++) {
-      walls[i].draw(context);
+      walls[i].draw(context, "black");
     }
 
-    wall7.draw(context);
+    drawShape();
+    castRays(shape);
 
-    particle.update(mouse.x, mouse.y); // moves particle
-    particle.draw(context); // draws particle
-    particle.look(context, walls); // draws rays
+    c.onmousedown = mouseDown;
+    c.onmouseup = mouseUp;
+    c.onmouseout = mouseOut;
 
     window.requestAnimationFrame(main);
   };
@@ -286,36 +363,36 @@ export function physical(THREE, OBJLoader) {
 
   //////////////////////
 
-  let image_array = [];
-  let css3_array = [2, 3, 20, 24];
-  let css2_array = [1, 6, 8, 12, 13, 17, 22];
+  // let image_array = [];
+  // let css3_array = [2, 3, 20, 24];
+  // let css2_array = [1, 6, 8, 12, 13, 17, 22];
 
-  for (let i = 0; i < 39; i++) {
-    let imgPreload = new Image();
-    let temp = {
-      name: i,
-      value: $(imgPreload).attr({ src: "/physical_images/" + i + ".jpg" }),
-    };
-    image_array.push(temp);
-  }
+  // for (let i = 0; i < 39; i++) {
+  //   let imgPreload = new Image();
+  //   let temp = {
+  //     name: i,
+  //     value: $(imgPreload).attr({ src: "/physical_images/" + i + ".jpg" }),
+  //   };
+  //   image_array.push(temp);
+  // }
 
-  for (let i = 0; i < image_array.length; i++) {
-    let img = document.createElement("img");
-    img.src = image_array[i].value.get(0).currentSrc;
-    img.classList.add("images");
+  // for (let i = 0; i < image_array.length; i++) {
+  //   let img = document.createElement("img");
+  //   img.src = image_array[i].value.get(0).currentSrc;
+  //   img.classList.add("images");
 
-    if (css2_array.includes(i)) img.style.gridColumn = "1 / span 2";
-    if (css3_array.includes(i)) img.style.gridColumn = "span 3";
+  //   if (css2_array.includes(i)) img.style.gridColumn = "1 / span 2";
+  //   if (css3_array.includes(i)) img.style.gridColumn = "span 3";
 
-    document.querySelector("#pictureBar").appendChild(img);
-  }
+  //   document.querySelector("#pictureBar").appendChild(img);
+  // }
 
-  window.onload = function () {
-    if (!window.location.hash) {
-      window.location = window.location + "#loaded";
-      window.location.reload();
-    }
-  };
+  // window.onload = function () {
+  //   if (!window.location.hash) {
+  //     window.location = window.location + "#loaded";
+  //     window.location.reload();
+  //   }
+  // };
 
   const canvas = document.querySelector("canvas.webgl");
   const scene = new THREE.Scene();
@@ -467,23 +544,23 @@ export function physical(THREE, OBJLoader) {
   const videoMesh = new THREE.Mesh(videoGeometry, videoMaterial);
   cameraScene.add(videoMesh);
 
-  initWebcamInput();
+  // initWebcamInput();
 
-  function initWebcamInput() {
-    if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-      navigator.mediaDevices
-        .getUserMedia({ video: true })
-        .then(function (stream) {
-          video.srcObject = stream;
-          video.play();
-        })
-        .catch(function (error) {
-          console.error("Unable to access the camera/webcam.", error);
-        });
-    } else {
-      console.error("MediaDevices interface not available.");
-    }
-  }
+  // function initWebcamInput() {
+  //   if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+  //     navigator.mediaDevices
+  //       .getUserMedia({ video: true })
+  //       .then(function (stream) {
+  //         video.srcObject = stream;
+  //         video.play();
+  //       })
+  //       .catch(function (error) {
+  //         console.error("Unable to access the camera/webcam.", error);
+  //       });
+  //   } else {
+  //     console.error("MediaDevices interface not available.");
+  //   }
+  // }
 
   const cameraRenderer = new THREE.WebGLRenderer({
     canvas: cameraCanvas,
@@ -509,52 +586,52 @@ export function physical(THREE, OBJLoader) {
   };
   video_tick();
 
-  function showImages(el) {
-    let windowHeight = jQuery(window).height();
-    $(el).each(function () {
-      let thisPos = $(this).offset().top;
+  // function showImages(el) {
+  //   let windowHeight = jQuery(window).height();
+  //   $(el).each(function () {
+  //     let thisPos = $(this).offset().top;
 
-      let topOfWindow = $(window).scrollTop();
-      if (topOfWindow + windowHeight - 200 > thisPos) {
-        $(this).addClass("fadeIn");
-      }
-    });
-  }
+  //     let topOfWindow = $(window).scrollTop();
+  //     if (topOfWindow + windowHeight - 200 > thisPos) {
+  //       $(this).addClass("fadeIn");
+  //     }
+  //   });
+  // }
 
-  // if the image in the window of browser when the page is loaded, show that image
-  $(document).ready(function () {
-    showImages(".images");
-  });
+  ////if the image in the window of browser when the page is loaded, show that image
+  // $(document).ready(function () {
+  //   showImages(".images");
+  // });
 
-  // if the image in the window of browser when scrolling the page, show that image
-  $(window).scroll(function () {
-    showImages(".images");
-  });
+  //// if the image in the window of browser when scrolling the page, show that image
+  // $(window).scroll(function () {
+  //   showImages(".images");
+  // });
 
-  function isScrolledIntoView(elem) {
-    let docViewTop = $(window).scrollTop();
-    let docViewBottom = docViewTop + $(window).height();
+  // function isScrolledIntoView(elem) {
+  //   let docViewTop = $(window).scrollTop();
+  //   let docViewBottom = docViewTop + $(window).height();
 
-    let elemTop = $(elem).offset().top;
-    let elemBottom = elemTop + $(elem).height();
+  //   let elemTop = $(elem).offset().top;
+  //   let elemBottom = elemTop + $(elem).height();
 
-    return elemBottom <= docViewBottom && elemTop >= docViewTop;
-  }
+  //   return elemBottom <= docViewBottom && elemTop >= docViewTop;
+  // }
 
-    $(window).scroll(function () {
-        const children = document.querySelector('#textBar').childNodes;
-        children.forEach(child => {
-            // console.log(child)
-            child.childNodes.forEach(grandchild => {
-                if (grandchild.id != null && isScrolledIntoView('#' + grandchild.id)) {
-                    // console.log("#..", grandchild.id)
-                    $('#' + grandchild.id).addClass('animation');
-                }
-            })
-        });
-    });
+  //   $(window).scroll(function () {
+  //       const children = document.querySelector('#textBar').childNodes;
+  //       children.forEach(child => {
+  //           // console.log(child)
+  //           child.childNodes.forEach(grandchild => {
+  //               if (grandchild.id != null && isScrolledIntoView('#' + grandchild.id)) {
+  //                   // console.log("#..", grandchild.id)
+  //                   $('#' + grandchild.id).addClass('animation');
+  //               }
+  //           })
+  //       });
+  //   });
 
-  document.querySelector("#go_home").addEventListener("click", () => {
-    document.location.href = "/index.html";
-  });
+  // document.querySelector("#go_home").addEventListener("click", () => {
+  //   document.location.href = "/index.html";
+  // });
 }
