@@ -10,6 +10,7 @@ export function physical(THREE, OBJLoader) {
   let canvasHeight = (c.height = window.innerHeight - y_offset);
   let offsetX = c.getBoundingClientRect().left;
   let offsetY = c.getBoundingClientRect().top;
+  let scrollOffset;
   let cols = 30;
   let rows = 30;
 
@@ -23,18 +24,23 @@ export function physical(THREE, OBJLoader) {
     y: 0,
   };
 
+  window.onbeforeunload = function () {
+    window.scrollTo(0, 0);
+  }
+
+  let scrollUpdate = function (event) {
+    event.preventDefault();
+    scrollOffset = this.scrollY;
+  };
+
   let startX;
   let startY;
-
-  console.log(offsetX + ", " + offsetY);
 
   let mouseDown = function (event) {
     event.preventDefault();
 
     startX = parseInt(event.clientX - offsetX);
-    startY = parseInt(event.clientY - offsetY);
-
-    console.log(startX, startY);
+    startY = parseInt(event.clientY - offsetY + scrollOffset);
     if (
       startX > shape.x &&
       startX < shape.x + shape.width &&
@@ -65,12 +71,12 @@ export function physical(THREE, OBJLoader) {
 
   let mouseMove = function (event) {
     mouse.x = event.pageX - offsetX;
-    mouse.y = event.pageY - offsetY;
+    mouse.y = event.pageY - offsetY + scrollOffset;
 
     if (is_dragging) {
       event.preventDefault();
       let mouseX = parseInt(event.clientX - offsetX);
-      let mouseY = parseInt(event.clientY - offsetY);
+      let mouseY = parseInt(event.clientY - offsetY + scrollOffset);
 
       let dx = mouseX - startX;
       let dy = mouseY - startY;
@@ -103,6 +109,7 @@ export function physical(THREE, OBJLoader) {
   };
 
   c.addEventListener("mousemove", mouseMove);
+  window.addEventListener("scroll", scrollUpdate);
 
   // helper functions
   let degreeToRadian = function (degree) {
@@ -356,6 +363,7 @@ export function physical(THREE, OBJLoader) {
     c.onmousedown = mouseDown;
     c.onmouseup = mouseUp;
     c.onmouseout = mouseOut;
+    c.onscroll = scrollUpdate;
 
     window.requestAnimationFrame(main);
   };
