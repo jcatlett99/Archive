@@ -105,7 +105,7 @@ export function func() {
         new THREE.MeshBasicMaterial({
           transparent: true,
           opacity: 0,
-        //   color: 0x00ff00,
+          //   color: 0x00ff00,
         })
       );
 
@@ -168,16 +168,16 @@ export function func() {
       models[3].scene.rotation.y = 2 * clock.getElapsedTime();
       models[3].scene.rotation.z = Math.cos(clock.getElapsedTime()) * 0.8;
       dragBoxes[3].rotation.y = 2 * clock.getElapsedTime();
-      dragBoxes[3].rotation.z = Math.cos(clock.getElapsedTime()) * 0.8
+      dragBoxes[3].rotation.z = Math.cos(clock.getElapsedTime()) * 0.8;
       dragBoxes[3].position.y += Math.cos(clock.getElapsedTime()) * 0.01;
 
-        models[4].scene.rotation.x = 0.3 * clock.getElapsedTime();
-        models[4].scene.rotation.y = 0.3 * clock.getElapsedTime();
-        models[4].scene.rotation.x = Math.cos(clock.getElapsedTime() + 5) * 0.2;
-        dragBoxes[4].rotation.x = 0.3 * clock.getElapsedTime();
-        dragBoxes[4].rotation.y = 0.3 * clock.getElapsedTime();
-        dragBoxes[4].rotation.x = Math.cos(clock.getElapsedTime() + 5) * 0.2;
-        dragBoxes[4].position.y += Math.cos( clock.getElapsedTime() ) * 0.01;
+      // models[4].scene.rotation.x = 0.3 * clock.getElapsedTime();
+      // models[4].scene.rotation.y = 0.3 * clock.getElapsedTime();
+      // models[4].scene.rotation.x = Math.cos(clock.getElapsedTime() + 5) * 0.2;
+      // dragBoxes[4].rotation.x = 0.3 * clock.getElapsedTime();
+      // dragBoxes[4].rotation.y = 0.3 * clock.getElapsedTime();
+      // dragBoxes[4].rotation.x = Math.cos(clock.getElapsedTime() + 5) * 0.2;
+      // dragBoxes[4].position.y += Math.cos(clock.getElapsedTime()) * 0.01;
 
       //   models[5].scene.rotation.x = 0.2 * clock.getElapsedTime();
       //   models[5].scene.position.y += Math.cos( clock.getElapsedTime() ) * 1.5;

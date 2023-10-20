@@ -1,4 +1,4 @@
-import { func } from "./test-file";
+import { func } from "../static/test-file.js";
 
 export function social(THREE, OBJLoader, GLTFLoader) {
   func();
