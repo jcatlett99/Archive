@@ -4,8 +4,34 @@ import { DragControls } from "three/examples/jsm/controls/DragControls";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
 export function func() {
+
+  const clock = new THREE.Clock();
+
   const canvas = document.querySelector("canvas.content");
   const scene = new THREE.Scene();
+
+  var reqNewMouseCords = true;
+  var intervalID = window.setInterval(saveMousePos, 500);
+
+  // mouse coordinates = [ 'CURRENT', '500ms AGO' ]
+  var currentMousePos = {x: 0, y: 0};
+  var prevMousePos = {x: 0, y: 0};
+
+  document.onmousemove = updateCurrentMouse;
+
+  function updateCurrentMouse(e) {
+    // console.log(e);
+    currentMousePos = {x: e.screenX, y: e.screenY}
+    
+    if (reqNewMouseCords) {
+      prevMousePos = {x: e.screenX, y: e.screenY}
+      reqNewMouseCords = false;
+    }
+  }
+
+  function saveMousePos() {
+    reqNewMouseCords = true;
+  }
 
   /**
    * LIGHTS
@@ -57,8 +83,19 @@ export function func() {
   dragControls.addEventListener("dragstart", function (event) {
     orbitControls.enabled = false;
   });
-  dragControls.addEventListener("dragend", function () {
+  dragControls.addEventListener("dragend", function (event) {
     orbitControls.enabled = true;
+
+    let diffX = (prevMousePos.x - currentMousePos.x);
+    let diffY = (prevMousePos.y - currentMousePos.y);
+
+    console.log(diffX);
+    console.log(diffY);
+    console.log("-----");
+
+    event.object.translateX(diffX*10);
+    event.object.translateY(diffY*10);
+    
   });
 
   const gltfLoader = new GLTFLoader();
@@ -66,10 +103,11 @@ export function func() {
   let modelReady = false;
   let modelPaths = [
     "/objects/ball.gltf",
-    "/objects/column-head.gltf",
+    "/objects/column.gltf",
     "/objects/cone.gltf",
     "/objects/lantern.gltf",
     "/objects/shoe.gltf",
+    "/objects/tree.gltf",
   ];
 
   let models = [];
@@ -127,8 +165,6 @@ export function func() {
     });
   }
 
-  const clock = new THREE.Clock();
-
   function animate() {
     requestAnimationFrame(animate);
 
@@ -137,14 +173,6 @@ export function func() {
     if (modelReady) {
       for (var i = 0; i < models.length; i++) {
         groups[i].position.copy(dragBoxes[i].position);
-
-        // if (dragBoxes[i].position != positions[i][0]) {
-        //   // console.log("Dragbox: " + dragBoxes[i].position)
-        //   // console.log("current: " + positions[i][0])
-        //   // console.log("previous: " + positions[i][1])
-        //   positions[i][1] = positions[i][0];
-        //   positions[i][0] = dragBoxes[i].position;
-        // }
       }
 
       models[0].scene.rotation.y = 0.5 * clock.getElapsedTime();
@@ -171,18 +199,17 @@ export function func() {
       dragBoxes[3].rotation.z = Math.cos(clock.getElapsedTime()) * 0.8;
       dragBoxes[3].position.y += Math.cos(clock.getElapsedTime()) * 0.01;
 
-      // models[4].scene.rotation.x = 0.3 * clock.getElapsedTime();
-      // models[4].scene.rotation.y = 0.3 * clock.getElapsedTime();
-      // models[4].scene.rotation.x = Math.cos(clock.getElapsedTime() + 5) * 0.2;
-      // dragBoxes[4].rotation.x = 0.3 * clock.getElapsedTime();
-      // dragBoxes[4].rotation.y = 0.3 * clock.getElapsedTime();
-      // dragBoxes[4].rotation.x = Math.cos(clock.getElapsedTime() + 5) * 0.2;
-      // dragBoxes[4].position.y += Math.cos(clock.getElapsedTime()) * 0.01;
+      models[4].scene.rotation.x = 0.3 * clock.getElapsedTime();
+      models[4].scene.rotation.y = 0.3 * clock.getElapsedTime();
+      models[4].scene.rotation.x = Math.cos(clock.getElapsedTime() + 5) * 0.2;
+      dragBoxes[4].rotation.x = 0.3 * clock.getElapsedTime();
+      dragBoxes[4].rotation.y = 0.3 * clock.getElapsedTime();
+      dragBoxes[4].rotation.x = Math.cos(clock.getElapsedTime() + 5) * 0.2;
+      dragBoxes[4].position.y += Math.cos(clock.getElapsedTime()) * 0.01;
 
-      //   models[5].scene.rotation.x = 0.2 * clock.getElapsedTime();
-      //   models[5].scene.position.y += Math.cos( clock.getElapsedTime() ) * 1.5;
-      //   dragBoxes[5].rotation.x = 0.2 * clock.getElapsedTime();
-      //   dragBoxes[5].position.y += Math.cos( clock.getElapsedTime() ) * 1.5;
+      models[5].scene.rotation.y = 0.5 * clock.getElapsedTime();
+      dragBoxes[5].rotation.y = 0.5 * clock.getElapsedTime();
+      dragBoxes[5].position.y += Math.cos(clock.getElapsedTime()) * 0.01;
     }
 
     render();
