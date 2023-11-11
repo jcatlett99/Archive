@@ -2,6 +2,8 @@ import './style.css';
 
 export function index(OBJLoader, THREE) {
 
+    let finished = false;
+
     const textureLoader = new THREE.TextureLoader();
     const normalTexture = textureLoader.load('/textures/NormalMap.png');
     const torusTexture = textureLoader.load('/textures/v1.png');
@@ -210,7 +212,7 @@ export function index(OBJLoader, THREE) {
         let bool = false;
         let name = "";
         for (const thing of objects) {
-            if (thing instanceof THREE.Mesh) {
+            if (finished && thing instanceof THREE.Mesh) {
                 const intersects = raycaster.intersectObject(thing);
                 if (intersects.length > 0) {
                     name = thing.geometry.type;
@@ -218,7 +220,7 @@ export function index(OBJLoader, THREE) {
                 }
             } else {
                 thing.traverse(function (child) {
-                    if (child instanceof THREE.Mesh) {
+                    if (finished && child instanceof THREE.Mesh) {
                         const intersects1 = raycaster.intersectObject(child);
                         if (intersects1.length > 0) {
                             bool = true;
@@ -266,7 +268,7 @@ export function index(OBJLoader, THREE) {
     function intersection(object) {
         raycaster.setFromCamera(pointer, camera);
 
-        if (object instanceof THREE.Mesh) {
+        if (finished && object instanceof THREE.Mesh) {
             const intersects = raycaster.intersectObject(object);
             if (intersects.length > 0) return true;
         } else {
@@ -303,9 +305,10 @@ export function index(OBJLoader, THREE) {
 
     if (vid) {
         vid.addEventListener('ended', () => {
-            console.log("finished");
-            document.querySelector('.webgl').classList.add("fadeIn");
-            vid.classList.add("fadeOut");
+            finished = true;
+            document.querySelector('.webgl').classList.add("animateIn");
+            document.querySelector(".skipButton").classList.add("animateOut");
+            vid.classList.add("animateOut");
         });
     }
 

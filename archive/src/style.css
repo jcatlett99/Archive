@@ -1,15 +1,13 @@
-*
-{
+* {
     margin: 0;
     padding: 0;
+    background: #0a0a0a;
 }
 
 html,
-body
-{
+body {
     height: 100vh;
     font-family: 'Josefin Sans';
-    background:rgb(24, 24, 30) ;
 
 }
 
@@ -32,7 +30,6 @@ body
     padding: 5px;
 
     z-index: 10;
-    visibility: visible;
 }
 
 #video {
@@ -50,6 +47,7 @@ body
     height: 100%;
     overflow: hidden;
 }
+
 .video-container video {
     min-width: 100%;
     min-height: 100%;
@@ -60,7 +58,7 @@ body
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%,-50%);
+    transform: translate(-50%, -50%);
 }
 
 .webgl {
@@ -72,26 +70,45 @@ body
     visibility: hidden;
 }
 
-.fadeIn {
-    -webkit-animation: animate_show 3s;
-    animation: animate_show 3s;
+@keyframes animate_show {
+    0% {
+        opacity: 0%;
+        filter: blur(5px);
+    }
+
+    50% {
+        opacity: 100%;
+        ilter: blur(2.5px);
+    }
+
+    100% {
+        opacity: 100%;
+        filter: blur(0px);
+    }
+}
+
+.animateIn {
+    /* -webkit-animation: animate_show 10s; */
+    animation: animate_show 5s ease-in-out;
+    animation-fill-mode: forwards;
     visibility: visible !important;
 }
 
-@-webkit-keyframes animate_show{
-    0%{opacity:0}
-    100%{opacity:1}
+@keyframes animate_hide {
+    from {
+        opacity: 100%;
+    }
+
+    to {
+        opacity: 0%;
+    }
 }
 
-.fadeOut {
-    -webkit-animation: animate_hide 3s;
-    animation: animate_hide 3s;
-    visibility: hidden !important;
-}
+.animateOut {
+    /* -webkit-animation: animate_hide 3s; */
+    animation: animate_hide 1s;
+    animation-fill-mode: forwards;  
 
-@-webkit-keyframes animate_hide{
-    0%{opacity:1}
-    100%{opacity:0}
 }
 
 #tooltip {
