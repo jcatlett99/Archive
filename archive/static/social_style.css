@@ -1,19 +1,20 @@
-*
-{
-    margin: 0;
-    padding: 0;
-}
-
-html,
-body
-{
-    height: 100vh;
-    font-family: 'Josefin Sans';
-    background:rgb(24, 24, 30) ;
-}
-
 body{
-    overflow-x: hidden;
+    background-color: black;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.parent-section {
+  overflow: scroll;
+  height: 100vh;
+  scroll-snap-points-y: repeat(100vh);
+  scroll-snap-type: y mandatory;
+}
+
+section {
+    height: 100vh;
+    scroll-snap-align: start;
+    position: relative;
 }
 
 .webgl {
@@ -24,10 +25,13 @@ body{
     mix-blend-mode: exclusion;
 }
 
+.content {
+    width: 90vw !important;
+    margin-left: 5vw;
+}
+
 #titleContainer {
     top: 0;
-    height: 100vh;
-    width: 100%;
     display: grid;
     place-items: center;
 }
@@ -52,91 +56,6 @@ h1 {
     position: absolute;
 }
 
-.container {
-    width: 100%;
-
-    padding-bottom: 25px;
-    padding-top: 25px;
-
-    display: block;
-}
-
-.speaker1{
-    position: relative;
-    font-size: 170%;
-    white-space: nowrap;
-    overflow: hidden;
-    visibility: hidden;
-    color: #ffffff;
-}
-
-.speaker2{
-    position: relative;
-    font-size: 170%;
-    white-space: nowrap;
-    overflow: hidden;
-    visibility: hidden;
-    color: #ffffff;
-    float: right;
-    display: inline-block;
-    text-align: right;
-
-}
-
-.animation{
-    visibility: visible;
-    animation: typewriter 4s steps(44) 1s 1 normal both
-}
-@keyframes typewriter{
-    from{width: 0;}
-    to{width: 100%;}
-}
-
-#pictureBar {
-    width: 50%;
-    height: 100%;
-
-    background: rgb(24, 24, 30);
-
-    right: 0;
-    position: absolute;
-
-    display: grid;
-    grid-template-columns: repeat(3, 2fr);
-    grid-gap: 1rem;
-}
-
-.images {
-    width: 100%;
-    height: 100%;
-    /*object-fit: cover;*/
-    visibility: hidden;
-
-    float: top;
-}
-
-#simulation {
-    margin-top: 10%;
-
-    position: relative;
-
-    height: 100%;
-    width: 100%;
-
-    background: rgb(50, 50, 50);
-}
-
-.fadeIn {
-    -webkit-animation: animat_show 0.8s;
-    animation: animat_show 0.8s;
-    visibility: visible !important;
-}
-
-@-webkit-keyframes animat_show{
-    0%{opacity:0}
-    100%{opacity:1}
-}
-
 .bottomSection {
 
     margin-top: 10%;
@@ -151,7 +70,7 @@ h1 {
 }
 
 .musicContainer {
-    background-color: rgb(24, 24, 30);
+    background-color: black;
 
     display: flex;
     padding: 20px 30px;

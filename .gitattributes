@@ -1,0 +1,2 @@
+.gltf filter=lfs diff=lfs merge=lfs -text
+archive/static/objects/column.gltf filter=lfs diff=lfs merge=lfs -text
