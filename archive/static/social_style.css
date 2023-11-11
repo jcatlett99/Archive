@@ -27,7 +27,7 @@ section {
 
 .content {
     border-radius: 2rem;
-    filter: drop-shadow(0 0 0.3rem rgb(207, 198, 179));
+    filter: drop-shadow(0 0 0.3rem rgb(161, 0, 27));
     background-color: black;
     width: 95vw !important;
     margin-left: 2.5vw;
