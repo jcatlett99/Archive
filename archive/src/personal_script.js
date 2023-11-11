@@ -113,6 +113,32 @@ export function personal(THREE) {
 
     tick();
 
+    /* ***************
+     * Parallax Scroll
+     ***************** */
+
+    // var parallaxElements = $('#textBar'),
+    // parallaxQuantity = parallaxElements.length;
+
+    // $(window).on('scroll', function () {
+
+    //     window.requestAnimationFrame(function () {
+
+    //         for (var i = 0; i < parallaxQuantity; i++) {
+    //         var currentElement =  parallaxElements.eq(i);
+    //         var scrolled = $(window).scrollTop();
+                
+    //             currentElement.css({
+    //             'transform': 'translate3d(0,' + scrolled * -0.3 + 'px, 0)'
+    //             });
+    //         }
+    //     });
+    // });
+
+    /* ************************
+     * Image Fade in on Scroll
+     ************************** */
+
     function showImages(el) {
         let windowHeight = jQuery(window).height();
         $(el).each(function () {
@@ -122,6 +148,13 @@ export function personal(THREE) {
             if (topOfWindow + windowHeight - 200 > thisPos) {
                 $(this).addClass("fadeIn");
             }
+
+            // console.log(
+            //     "Top of window: " + topOfWindow +
+            //     "\nWindow Height: " + windowHeight +
+            //     "\nThis Position: " + thisPos +
+            //     "\nInternal Scroll Pos: " + $('.parent').scrollTop()
+            // )
         });
     }
 
@@ -135,50 +168,46 @@ export function personal(THREE) {
         showImages('.images');
     });
 
+     /* ****************************
+     * Text Typewriter in on Scroll
+     ******************************* */
 
     function isScrolledIntoView(elem, v) {
-
+        console.log("...checking");
+        // debugger;
         let docViewTop = $(window).scrollTop();
         let docViewBottom = docViewTop + $(window).height();
 
         let elemTop = $(elem).offset().top;
         let elemBottom = elemTop + $(elem).height();
 
-        // console.log(elemBottom, ":", docViewBottom, " | ", elemTop, ":", docViewTop)
-
         if (!v) return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
-
+        
         return ((elemBottom <= docViewBottom) || (elemTop >= docViewTop))
     }
 
     $(window).scroll(function () {
-
-
-        const children = document.querySelector('#textBar').childNodes;
+        const children = document.querySelector('.text-subdivision').childNodes;
         children.forEach(child => {
-            // console.log(child)
+            console.log("------CHILD------")
+            console.log(child)
+            console.log("---2--CHILD------")
             child.childNodes.forEach(grandchild => {
                 if (grandchild.id != null && isScrolledIntoView('#' + grandchild.id)) {
-                    // console.log("#..", grandchild.id)
+                    console.log("#..", grandchild.id)
                     $('#' + grandchild.id).addClass('animation');
                 }
             })
         });
     });
 
-    window.onscroll = function() {
-        if (window.pageYOffset >= 15000) {
-
-            const video = document.querySelector('#sim');
-            if (video != null) {
-                video.play();
-                document.querySelector('#sim').classList.add('fadeVideo');
-            }
-        }
-    };
-
     document.querySelector('#home_container').addEventListener('click', () => {
         document.location.href = "/index.html";
     });
+
+    console.log(
+        "Text: " + $("#textBar").height() +
+        "\nPics: " + $("#pictureBar").height()
+    );
 
 }
