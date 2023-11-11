@@ -320,6 +320,8 @@ export function physical(THREE, OBJLoader) {
     cell.show();
   }
 
+  // Random walls
+
   // let wall = new Boundary(new Vector(375, 250), new Vector(375, 50));
   // walls.push(wall);
   // let wall2 = new Boundary(new Vector(100, 100), new Vector(250, 250));
@@ -329,16 +331,26 @@ export function physical(THREE, OBJLoader) {
   // let wall4 = new Boundary(new Vector(50, 50), new Vector(250, 50));
   // walls.push(wall4);
 
-  let wall5 = new Boundary(new Vector(0, 0), new Vector(0, canvasHeight), true);
+  let wall5 = new Boundary(
+    new Vector(0, 0),
+    new Vector(0, canvasHeight),
+    true);
   walls.push(wall5);
-  let wall6 = new Boundary(new Vector(0, 0), new Vector(canvasWidth, 0), true);
+
+  let wall6 = new Boundary(
+    new Vector(0, 0),
+    new Vector(canvasWidth, 0),
+    true);
+
   walls.push(wall6);
+
   let wall8 = new Boundary(
     new Vector(0, canvasHeight),
     new Vector(canvasWidth, canvasHeight),
     true
   );
   walls.push(wall8);
+
   let wall7 = new Boundary(
     new Vector(canvasWidth, 0),
     new Vector(canvasWidth, canvasHeight),
@@ -594,52 +606,7 @@ export function physical(THREE, OBJLoader) {
   };
   video_tick();
 
-  // function showImages(el) {
-  //   let windowHeight = jQuery(window).height();
-  //   $(el).each(function () {
-  //     let thisPos = $(this).offset().top;
-
-  //     let topOfWindow = $(window).scrollTop();
-  //     if (topOfWindow + windowHeight - 200 > thisPos) {
-  //       $(this).addClass("fadeIn");
-  //     }
-  //   });
-  // }
-
-  ////if the image in the window of browser when the page is loaded, show that image
-  // $(document).ready(function () {
-  //   showImages(".images");
-  // });
-
-  //// if the image in the window of browser when scrolling the page, show that image
-  // $(window).scroll(function () {
-  //   showImages(".images");
-  // });
-
-  // function isScrolledIntoView(elem) {
-  //   let docViewTop = $(window).scrollTop();
-  //   let docViewBottom = docViewTop + $(window).height();
-
-  //   let elemTop = $(elem).offset().top;
-  //   let elemBottom = elemTop + $(elem).height();
-
-  //   return elemBottom <= docViewBottom && elemTop >= docViewTop;
-  // }
-
-  //   $(window).scroll(function () {
-  //       const children = document.querySelector('#textBar').childNodes;
-  //       children.forEach(child => {
-  //           // console.log(child)
-  //           child.childNodes.forEach(grandchild => {
-  //               if (grandchild.id != null && isScrolledIntoView('#' + grandchild.id)) {
-  //                   // console.log("#..", grandchild.id)
-  //                   $('#' + grandchild.id).addClass('animation');
-  //               }
-  //           })
-  //       });
-  //   });
-
-  // document.querySelector("#go_home").addEventListener("click", () => {
-  //   document.location.href = "/index.html";
-  // });
+  document.querySelector('#go_home').addEventListener('click', () => {
+    document.location.href = "/index.html";
+});
 }
