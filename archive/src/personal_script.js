@@ -174,7 +174,7 @@ export function personal(THREE) {
 
     function isScrolledIntoView(elem, v) {
         console.log("...checking");
-        debugger;
+        // debugger;
         let docViewTop = $(window).scrollTop();
         let docViewBottom = docViewTop + $(window).height();
 
