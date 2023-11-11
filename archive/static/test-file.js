@@ -14,17 +14,17 @@ export function func() {
   var intervalID = window.setInterval(saveMousePos, 500);
 
   // mouse coordinates = [ 'CURRENT', '500ms AGO' ]
-  var currentMousePos = {x: 0, y: 0};
-  var prevMousePos = {x: 0, y: 0};
+  var currentMousePos = { x: 0, y: 0 };
+  var prevMousePos = { x: 0, y: 0 };
 
   document.onmousemove = updateCurrentMouse;
 
   function updateCurrentMouse(e) {
     // console.log(e);
-    currentMousePos = {x: e.screenX, y: e.screenY}
-    
+    currentMousePos = { x: e.screenX, y: e.screenY }
+
     if (reqNewMouseCords) {
-      prevMousePos = {x: e.screenX, y: e.screenY}
+      prevMousePos = { x: e.screenX, y: e.screenY }
       reqNewMouseCords = false;
     }
   }
@@ -44,7 +44,7 @@ export function func() {
 
   scene.add(orangeLight);
   scene.add(blueLight);
-  scene.add(new THREE.AmbientLight(0xffffff, 0.1625));
+  scene.add(new THREE.AmbientLight(0xffffff, 5));
 
   /**
    * CAMERA
@@ -53,7 +53,7 @@ export function func() {
   const camera = new THREE.PerspectiveCamera(
     50,
     window.innerWidth / window.innerHeight,
-    1,
+    0.01,
     100000
   );
   camera.position.set(0, 0, -30);
@@ -86,16 +86,16 @@ export function func() {
   dragControls.addEventListener("dragend", function (event) {
     orbitControls.enabled = true;
 
-    let diffX = (prevMousePos.x - currentMousePos.x);
-    let diffY = (prevMousePos.y - currentMousePos.y);
+    // let diffX = (prevMousePos.x - currentMousePos.x);
+    // let diffY = (prevMousePos.y - currentMousePos.y);
 
-    console.log(diffX);
-    console.log(diffY);
-    console.log("-----");
+    // console.log(diffX);
+    // console.log(diffY);
+    // console.log("-----");
 
-    event.object.translateX(diffX*10);
-    event.object.translateY(diffY*10);
-    
+    // event.object.translateX(diffX*10);
+    // event.object.translateY(diffY*10);
+
   });
 
   const gltfLoader = new GLTFLoader();
@@ -143,7 +143,8 @@ export function func() {
         new THREE.MeshBasicMaterial({
           transparent: true,
           opacity: 0,
-          //   color: 0x00ff00,
+          depthWrite: false,
+          // color: 0x00ff00,
         })
       );
 
